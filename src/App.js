@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
 import ReactModal from 'react-modal';
 import 'react-tabs/style/react-tabs.css';
@@ -8,29 +8,86 @@ import './App.css';
 
 
 function App() {
+const [account, setAccount]=useState(false)
+const [characters, setCharacters]=useState(false)
+const [settings, setSettings]=useState(false)
+const [terms, setTerms]=useState(false)
+const [help, setHelp]=useState(false)
 
+
+const [languages, setLanguages]=useState(false)
+const [feats, setFeats]=useState(false)
+const [abilities, setAbilities]=useState(false)
+
+
+const [cantrips, setCantrips]=useState(false)
+const [prepared, setPrepared]=useState(false)
+const [active, setActive]=useState(false)
+const [known, setKnown]=useState(false)
+
+const [equipment, setEquipment]=useState(false)
+const [bags, setBags]=useState(false)
+
+const [levels, setLevels]=useState(false)
 
 
     return (
-        <Tabs>
-            <TabList>
-		<Tab>Menu</Tab>
-                <Tab>Overview</Tab>
-                <Tab>Combat</Tab>
-                <Tab>Skills</Tab>
-                <Tab>Spells</Tab>
-                <Tab>Inventory</Tab>
-                <Tab>Levels</Tab>
-            </TabList>
+	<Tabs>
+		<TabList>
+			<Tab>Menu</Tab>
+            		<Tab>Overview</Tab>
+            		<Tab>Combat</Tab>
+            		<Tab>Skills</Tab>
+            		<Tab>Spells</Tab>
+            		<Tab>Inventory</Tab>
+            		<Tab>Levels</Tab>
+		</TabList>
 
 
             <TabPanel>
-                <button type="button">Account</button>
-                <button type="button">Characters</button>
-                <button type="button">Settings</button>
-                <button type="button">Terms of Service</button>
-                <button type="button">Help</button>
+                <button type="button" onClick={() => setAccount(true)}>Account</button>
+                <button type="button" onClick={() => setCharacters(true)}>Characters</button>
+                <button type="button" onClick={() => setSettings(true)}>Settings</button>
+                <button type="button" onClick={() => setTerms(true)}>Terms of Service</button>
+                <button type="button" onClick={() => setHelp(true)}>Help</button>
 
+
+		<ReactModal isOpen={account}>
+		 	<button type="button" onClick={() => setAccount(false)}>X</button>
+			<div>
+        			<label>
+					<p>
+          					Username:
+          					<input type="text" name="name"/>
+					</p>
+        			</label>
+				
+        			<label>
+					<p>
+          					Password:
+          					<input type="text" name="race"/>
+					</p>
+        			</label>
+		 		<button type="button">ENTER</button>
+			</div>
+		</ReactModal>
+		<ReactModal isOpen={characters}>
+		 	<button type="button" onClick={() => setCharacters(false)}>X</button>
+			<p>List of characters, and the ability to pick or delete one</p>
+		 	<button type="button">+</button>
+		</ReactModal>
+		<ReactModal isOpen={settings}>
+		 	<button type="button" onClick={() => setSettings(false)}>X</button>
+			<p>No settings</p>
+		</ReactModal>
+		<ReactModal isOpen={terms}>
+		 	<button type="button" onClick={() => setTerms(false)}>X</button>
+			<p>TBD</p>
+		</ReactModal>
+		<ReactModal isOpen={help}>
+		 	<button type="button" onClick={() => setHelp(false)}>X</button>
+			<p>an overview of every tab and what it does as well as contact information at the end in the form of our emails</p>
+		</ReactModal>
             </TabPanel>
             <TabPanel>
             	<form>
@@ -360,31 +417,61 @@ function App() {
                 	<button type="button">+</button>
 		</div>
 		<div>
-			<p>Languages:</p>
+			<p>Languages: <button type="button" onClick={() => setLanguages(true)}>Edit</button></p>
 			<p>Languages that are avilable</p>
 		</div>
+		<ReactModal isOpen={languages}>
+		 	<button type="button" onClick={() => setLanguages(false)}>X</button>
+			<p>Allows you to delete a current item or add a new one</p>
+		 	<button type="button">+</button>
+		</ReactModal>
 		<div>
-			<p>Feats:</p>
+			<p>Feats: <button type="button" onClick={() => setFeats(true)}>Edit</button></p>
 			<p>Feats that are avilable</p>
 		</div>
+		<ReactModal isOpen={feats}>
+		 	<button type="button" onClick={() => setFeats(false)}>X</button>
+			<p>Allows you to delete a current item or add a new one</p>
+		 	<button type="button">+</button>
+		</ReactModal>
 		<div>
-			<p>Special Abilities:</p>
+			<p>Special Abilities: <button type="button" onClick={() => setAbilities(true)}>Edit</button></p>
 			<p>Special Abilities that are avilable</p>
 		</div>
+		<ReactModal isOpen={abilities}>
+		 	<button type="button" onClick={() => setAbilities(false)}>X</button>
+			<p>Allows you to delete a current item or add a new one</p>
+		 	<button type="button">+</button>
+		</ReactModal>
             </TabPanel>
             <TabPanel>
 		<div>
-			<p>Cantrips:</p>
+			<p>Cantrips: <button type="button" onClick={() => setCantrips(true)}>Edit</button></p>
 			<p>Cantrips that are avilable</p>
 		</div>
+		<ReactModal isOpen={cantrips}>
+		 	<button type="button" onClick={() => setCantrips(false)}>X</button>
+			<p>Allows you to delete a current item or add a new one</p>
+		 	<button type="button">+</button>
+		</ReactModal>
 		<div>
-			<p>Prepared Spells:</p>
+			<p>Prepared Spells: <button type="button" onClick={() => setPrepared(true)}>Edit</button></p>
 			<p>Prepared Spells that are avilable</p>
 		</div>
+		<ReactModal isOpen={prepared}>
+		 	<button type="button" onClick={() => setPrepared(false)}>X</button>
+			<p>Allows you to delete a current item or add a new one</p>
+		 	<button type="button">+</button>
+		</ReactModal>
 		<div>
-			<p>Active Spell Effects Abilities:</p>
+			<p>Active Spell Effects Abilities: <button type="button" onClick={() => setActive(true)}>Edit</button></p>
 			<p>Active Spell Effects that are avilable</p>
 		</div>
+		<ReactModal isOpen={active}>
+		 	<button type="button" onClick={() => setActive(false)}>X</button>
+			<p>Allows you to delete a current item or add a new one</p>
+		 	<button type="button">+</button>
+		</ReactModal>
 		<h2>Spell Slots</h2>
 		<div>
 			Level	Max	Current
@@ -417,9 +504,14 @@ function App() {
 			Level 9:
 		</div>
 		<div>
-			<p>Known Spells:</p>
+			<p>Known Spells: <button type="button" onClick={() => setKnown(true)}>Edit</button></p>
 			<p>Known Spells that are available</p>
 		</div>
+		<ReactModal isOpen={known}>
+		 	<button type="button" onClick={() => setKnown(false)}>X</button>
+			<p>Allows you to delete a current item or add a new one</p>
+		 	<button type="button">+</button>
+		</ReactModal>
             </TabPanel>
 
             <TabPanel>
@@ -441,22 +533,35 @@ function App() {
           		<input type="number" name="copper"/>
 		</div>
 		<div>
-                	<button type="button">-</button>
-                	<button type="button">+</button>
-				<p>Equipment</p>
-				<p>Equipment that is available</p>
+			<p>Equipment</p>
+			<p>Equipment that is available</p>
+                	<button type="button" onClick={() => setEquipment(true)}>Edit</button>
 		</div>
+		<ReactModal isOpen={equipment}>
+		 	<button type="button" onClick={() => setEquipment(false)}>X</button>
+			<p>Allows you to delete a current item or add a new one, if an item is in a current slot already then it replaces it</p>
+		 	<button type="button">+</button>
+		</ReactModal>
 		<div>
-                	<button type="button">-</button>
-                	<button type="button">+</button>
-				<p>Bags</p>
-				<p>Bags that are available</p>
+			<p>Inventory</p>
+			<p>Inventory that is available</p>
+                	<button type="button" onClick={() => setBags(true)}>Edit</button>
 		</div>
+		<ReactModal isOpen={bags}>
+		 	<button type="button" onClick={() => setBags(false)}>X</button>
+			<p>Allows you to delete a current item or add a new one</p>
+		 	<button type="button">+</button>
+		</ReactModal>
             </TabPanel>
 
             <TabPanel>
-                <button type="button">Change</button>
-			<p>Classes and levels</p>
+                <button type="button" onClick={() => setLevels(true)}>Change</button>
+		<p>Classes and levels</p>
+		<ReactModal isOpen={levels}>
+		 	<button type="button" onClick={() => setLevels(false)}>X</button>
+			<p>Allows you to edit or delete a current item or add a new one</p>
+		 	<button type="button">+</button>
+		</ReactModal>
             </TabPanel>
         </Tabs>
     );
