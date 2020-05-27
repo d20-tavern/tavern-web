@@ -1,6 +1,5 @@
 import React from 'react';
 import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
-import ReactModal from 'react-modal';
 import 'react-tabs/style/react-tabs.css';
 import './App.css';
 
@@ -25,12 +24,11 @@ function App() {
 
 
             <TabPanel>
-                <button type="button">Account</button>
-                <button type="button">Characters</button>
-                <button type="button">Settings</button>
-                <button type="button">Terms of Service</button>
-                <button type="button">Help</button>
-
+		<input type="submit" value="Account"/>
+		<input type="submit" value="Characters"/>
+		<input type="submit" value="Settings"/>
+		<input type="submit" value="Terms of Service"/>
+		<input type="submit" value="Help"/>
             </TabPanel>
             <TabPanel>
             	<form>
@@ -81,10 +79,10 @@ function App() {
 				<p>CHA:	</p>
 			</div>
 
-			<p>Character Description:</p>
-			<textarea>
+				<p>Character Description:</p>
+				<textarea>
  			
-			</textarea>
+				</textarea>
 
 			<p>Backstory:</p>
 			<textarea>
@@ -151,7 +149,7 @@ function App() {
 
 			<div>
 				<p>Available Spells:</p>
-				<p>Spells that are available</p>
+				<p>Spells that are avilable</p>
 			</div>
 
 			<div>
@@ -172,192 +170,193 @@ function App() {
 
 			<div>
 				<p>Abilities:</p>
-				<p>Abilities that are available</p>
+				<p>Abilities that are avilable</p>
 			</div>
 
             </TabPanel>
 
             <TabPanel>
 		<div>
-                	<button type="button">-</button>
+                	<input type="submit" value="-"/>
 				Acrobatics:  
-                	<button type="button">+</button>
+                	<input type="submit" value="+"/>
 		</div>
 		<div>
-                	<button type="button">-</button>
+                	<input type="submit" value="-"/>
 				Appraise: 
-                	<button type="button">+</button>
+                	<input type="submit" value="+"/>
 		</div>
 		<div>
-                	<button type="button">-</button>
+                	<input type="submit" value="-"/>
 				Bluff: 
-                	<button type="button">+</button>
+                	<input type="submit" value="+"/>
 		</div>
 		<div>
-                	<button type="button">-</button>
+                	<input type="submit" value="-"/>
 				Climb: 
-                	<button type="button">+</button>
+                	<input type="submit" value="+"/>
 		</div>
 		<div>
-                	<button type="button">-</button>
+                	<input type="submit" value="-"/>
 				Craft: 
-                	<button type="button">+</button>
+                	<input type="submit" value="+"/>
 		</div>
 		<div>
-                	<button type="button">-</button>
+                	<input type="submit" value="-"/>
 				Profession: 
-                	<button type="button">+</button>
+                	<input type="submit" value="+"/>
 		</div>
 		<div>
-                	<button type="button">-</button>
+                	<input type="submit" value="-"/>
 				Local: 
-                	<button type="button">+</button>
+                	<input type="submit" value="+"/>
 		</div>
 		<div>
-                	<button type="button">-</button>
+                	<input type="submit" value="-"/>
 				Handle Animal: 
-                	<button type="button">+</button>
+                	<input type="submit" value="+"/>
 		</div>
 		<div>
-                	<button type="button">-</button>
+                	<input type="submit" value="-"/>
 				Heal: 
-                	<button type="button">+</button>
+                	<input type="submit" value="+"/>
 		</div>
 
 		<div>
-                	<button type="button">-</button>
+                	<input type="submit" value="-"/>
 				Intimidate: 
-                	<button type="button">+</button>
+                	<input type="submit" value="+"/>
 		</div>
+
 		<div>
-                	<button type="button">-</button>
+                	<input type="submit" value="-"/>
 				Arcana: 
-                	<button type="button">+</button>
+                	<input type="submit" value="+"/>
 		</div>
 		<div>
-                	<button type="button">-</button>
+                	<input type="submit" value="-"/>
 				Local: 
-                	<button type="button">+</button>
+                	<input type="submit" value="+"/>
 		</div>
 		<div>
-                	<button type="button">-</button>
+                	<input type="submit" value="-"/>
 				Dungeoneering: 
-                	<button type="button">+</button>
+                	<input type="submit" value="+"/>
 		</div>
 		<div>
-                	<button type="button">-</button>
+                	<input type="submit" value="-"/>
 				Disguise: 
-                	<button type="button">+</button>
+                	<input type="submit" value="+"/>
 		</div>
 		<div>
-                	<button type="button">-</button>
+                	<input type="submit" value="-"/>
 				Sense Motive: 
-                	<button type="button">+</button>
+                	<input type="submit" value="+"/>
 		</div>
 		<div>
-                	<button type="button">-</button>
+                	<input type="submit" value="-"/>
 				Nobility: 
-                	<button type="button">+</button>
+                	<input type="submit" value="+"/>
 		</div>
 		<div>
-                	<button type="button">-</button>
+                	<input type="submit" value="-"/>
 				Planes: 
-                	<button type="button">+</button>
+                	<input type="submit" value="+"/>
 		</div>
 		<div>
-                	<button type="button">-</button>
+                	<input type="submit" value="-"/>
 				Religion: 
-                	<button type="button">+</button>
+                	<input type="submit" value="+"/>
 		</div>
 		<div>
-                	<button type="button">-</button>
+                	<input type="submit" value="-"/>
 				Linguistics: 
-                	<button type="button">+</button>
+                	<input type="submit" value="+"/>
 		</div>
 		<div>
-                	<button type="button">-</button>
+                	<input type="submit" value="-"/>
 				Perception: 
-                	<button type="button">+</button>
+                	<input type="submit" value="+"/>
 		</div>
 		<div>
-                	<button type="button">-</button>
+                	<input type="submit" value="-"/>
 				History: 
-                	<button type="button">+</button>
+                	<input type="submit" value="+"/>
 		</div>
 		<div>
-                	<button type="button">-</button>
+                	<input type="submit" value="-"/>
 				Fly: 
-                	<button type="button">+</button>
+                	<input type="submit" value="+"/>
 		</div>
 		<div>
-                	<button type="button">-</button>
+                	<input type="submit" value="-"/>
 				Spellcraft: 
-                	<button type="button">+</button>
+                	<input type="submit" value="+"/>
 		</div>
 		<div>
-                	<button type="button">-</button>
+                	<input type="submit" value="-"/>
 				Stealth: 
-                	<button type="button">+</button>
+                	<input type="submit" value="+"/>
 		</div>
 		<div>
-                	<button type="button">-</button>
+                	<input type="submit" value="-"/>
 				Survival: 
-                	<button type="button">+</button>
+                	<input type="submit" value="+"/>
 		</div>
 		<div>
-                	<button type="button">-</button>
+                	<input type="submit" value="-"/>
 				Swim: 
-                	<button type="button">+</button>
+                	<input type="submit" value="+"/>
 		</div>
 		<div>
-                	<button type="button">-</button>
+                	<input type="submit" value="-"/>
 				Use Magic Device: 
-                	<button type="button">+</button>
+                	<input type="submit" value="+"/>
 		</div>
 		<div>
-                	<button type="button">-</button>
+                	<input type="submit" value="-"/>
 				Ride: 
-                	<button type="button">+</button>
+                	<input type="submit" value="+"/>
 		</div>
 		<div>
-                	<button type="button">-</button>
+                	<input type="submit" value="-"/>
 				Nature: 
-                	<button type="button">+</button>
+                	<input type="submit" value="+"/>
 		</div>
 		<div>
-                	<button type="button">-</button>
+                	<input type="submit" value="-"/>
 				Diplomacy: 
-                	<button type="button">+</button>
+                	<input type="submit" value="+"/>
 		</div>
 		<div>
-                	<button type="button">-</button>
+                	<input type="submit" value="-"/>
 				Engineering: 
-                	<button type="button">+</button>
+                	<input type="submit" value="+"/>
 		</div>
 		<div>
-                	<button type="button">-</button>
+                	<input type="submit" value="-"/>
 				Preform: 
-                	<button type="button">+</button>
+                	<input type="submit" value="+"/>
 		</div>
 		<div>
-                	<button type="button">-</button>
+                	<input type="submit" value="-"/>
 				Disable Device: 
-                	<button type="button">+</button>
+                	<input type="submit" value="+"/>
 		</div>
 		<div>
-                	<button type="button">-</button>
+                	<input type="submit" value="-"/>
 				Geography: 
-                	<button type="button">+</button>
+                	<input type="submit" value="+"/>
 		</div>
 		<div>
-                	<button type="button">-</button>
+                	<input type="submit" value="-"/>
 				Escape Artist: 
-                 	<button type="button">+</button>
+                	<input type="submit" value="+"/>
 		</div>
 		<div>
-                	<button type="button">-</button>
+                	<input type="submit" value="-"/>
 				Slight of Hand: 
-                	<button type="button">+</button>
+                	<input type="submit" value="+"/>
 		</div>
 		<div>
 			<p>Languages:</p>
@@ -418,7 +417,7 @@ function App() {
 		</div>
 		<div>
 			<p>Known Spells:</p>
-			<p>Known Spells that are available</p>
+			<p>Known Spells that are avilable</p>
 		</div>
             </TabPanel>
 
@@ -426,36 +425,36 @@ function App() {
                 <h3>Currency</h3>
 		<div>
           		Platinum:
-          		<input type="number" name="platinum"/>
+          		<input type="text" name="platinum"/>
 		</div>
 		<div>
           		Gold:
-          		<input type="number" name="gold"/>
+          		<input type="text" name="gold"/>
 		</div>
 		<div>
           		Silver:
-          		<input type="number" name="silver"/>
+          		<input type="text" name="silver"/>
 		</div>
 		<div>
           		Copper:
-          		<input type="number" name="copper"/>
+          		<input type="text" name="copper"/>
 		</div>
 		<div>
-                	<button type="button">-</button>
-                	<button type="button">+</button>
-				<p>Equipment</p>
-				<p>Equipment that is available</p>
+                	<input type="submit" value="-"/>
+                	<input type="submit" value="+"/>
+				<p>Equitment</p>
+				<p>Equitment that is avilable</p>
 		</div>
 		<div>
-                	<button type="button">-</button>
-                	<button type="button">+</button>
+                	<input type="submit" value="-"/>
+                	<input type="submit" value="+"/>
 				<p>Bags</p>
-				<p>Bags that are available</p>
+				<p>Bags that are avilable</p>
 		</div>
             </TabPanel>
 
             <TabPanel>
-                <button type="button">Change</button>
+                <input type="submit" value="Change"/>
 			<p>Classes and levels</p>
             </TabPanel>
         </Tabs>
