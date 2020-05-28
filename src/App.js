@@ -25,11 +25,14 @@ export default class App extends React.Component {
 			charDescription: "Very generic.",
 			charBackstory: "Not much to speak of.",
 
-			strengthVal: 10,
-			dexVal: 10,
-			conVal: 10,
+			currentHealth: 50,
+			maxHealth: 50,
+
+			strengthVal: 16,
+			dexVal: 12,
+			conVal: 12,
 			intVal: 10,
-			wisdomVal: 10,
+			wisdomVal: 8,
 			charismaVal: 10,
 
 			strengthBase: 0,
@@ -58,7 +61,48 @@ export default class App extends React.Component {
 			conMisc: 0,
 			intMisc: 0,
 			wisdomMisc: 0,
-			charismaMisc: 0
+			charismaMisc: 0,
+
+			armorAc: 5,
+			shieldAc: 3,
+			sizeAc: 0,
+			dodgeAc: -1,
+			deflectAc: 1,
+			naturalAc: 0,
+			miscAc: 0,
+
+			sr: 0,
+
+			classFortSave: 5,
+			classReflexSave: 3,
+			classWillSave: 2,
+
+			fortEnhance: 0,
+			reflexEnhance: 0,
+			willEnhance: 0,
+
+			fortMisc: 0,
+			reflexMisc: 0,
+			willMisc: 0,
+
+			bab: 3,
+
+			meleeEnhance: 0,
+			rangedEnhance: 0,
+			cmbEnhance: 0,
+
+			meleeMisc: 0,
+			rangedMisc: 0,
+			cmbMisc: 0,
+
+			improvedInit: true,
+			initMod: 0,
+
+			maxDex: 3,
+			armorPenalty: -5,
+			spellFailure: -3,
+
+			moveSpeed: 20
 		};
 	}
 
@@ -100,7 +144,6 @@ export default class App extends React.Component {
 						strengthEnhance={this.state.strengthEnhance}
 						strengthMisc={this.state.strengthMisc}
 
-						
 						dexVal={this.state.dexVal}
 						dexBase={this.state.dexBase}
 						dexInherent={this.state.dexInherent}
@@ -131,13 +174,80 @@ export default class App extends React.Component {
 						charismaEnhance={this.state.charismaEnhance}
 						charismaMisc={this.state.charismaMisc}
 
-						description={this.props.charDescription}
-						backstory={this.props.charBackstory}
+						description={this.state.charDescription}
+						backstory={this.state.charBackstory}
 					/>
 				</TabPanel>
 
 				<TabPanel>
 					<CombatTab
+						currentHealth={this.state.currentHealth}
+						maxHealth={this.state.maxHealth}
+
+						armorAc={this.state.armorAc}
+						shieldAc={this.state.shieldAc}
+						deflectAc={this.state.deflectAc}
+						naturalAc={this.state.deflectAc}
+						dodgeAc={this.state.dodgeAc}
+						sizeAc={this.state.sizeAc}
+						miscAc={this.state.miscAc}
+
+						sr={this.state.sr}
+						bab={this.state.bab}
+						maxDex={this.state.maxDex}
+
+						improvedInit={this.state.improvedInit}
+						initMod={this.state.initMod}
+						moveSpeed={this.state.moveSpeed}
+
+						classFortSave={this.state.classFortSave}
+						classReflexSave={this.state.classReflexSave}
+						classWillSave={this.state.classWillSave}
+
+						fortEnhance={this.state.fortEnhance}
+						reflexEnhance={this.state.reflexEnhance}
+						willEnhance={this.state.willEnhance}
+
+						fortMisc={this.state.fortMisc}
+						reflexMisc={this.state.reflexMisc}
+						willMisc={this.state.willMisc}
+
+						strengthVal={this.state.strengthVal}
+						strengthBase={this.state.strengthBase}
+						strengthInherent={this.state.strengthInherent}
+						strengthEnhance={this.state.strengthEnhance}
+						strengthMisc={this.state.strengthMisc}
+
+						dexVal={this.state.dexVal}
+						dexBase={this.state.dexBase}
+						dexInherent={this.state.dexInherent}
+						dexEnhance={this.state.dexEnhance}
+						dexMisc={this.state.dexMisc}
+			
+						conVal={this.state.conVal}
+						conBase={this.state.conBase}
+						conInherent={this.state.conInherent}
+						conEnhance={this.state.conEnhance}
+						conMisc={this.state.conMisc}
+
+						intVal={this.state.intVal}
+						intBase={this.state.intBase}
+						intInherent={this.state.intInherent}
+						intEnhance={this.state.intEnhance}
+						intMisc={this.state.intMisc}
+
+						wisdomVal={this.state.wisdomVal}
+						wisdomBase={this.state.wisdomBase}
+						wisdomInherent={this.state.wisdomInherent}
+						wisdomEnhance={this.state.wisdomEnhance}
+						wisdomMisc={this.state.wisdomMisc}
+
+						charismaVal={this.state.charismaVal}
+						charismaBase={this.state.charismaBase}
+						charismaInherent={this.state.charismaInherent}
+						charismaEnhance={this.state.charismaEnhance}
+						charismaMisc={this.state.charismaMisc}
+
 					/>
 				</TabPanel>
 
