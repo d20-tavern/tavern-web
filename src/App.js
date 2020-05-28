@@ -187,7 +187,7 @@ export default class App extends React.Component {
 						armorAc={this.state.armorAc}
 						shieldAc={this.state.shieldAc}
 						deflectAc={this.state.deflectAc}
-						naturalAc={this.state.deflectAc}
+						naturalAc={this.state.naturalAc}
 						dodgeAc={this.state.dodgeAc}
 						sizeAc={this.state.sizeAc}
 						miscAc={this.state.miscAc}
@@ -211,6 +211,14 @@ export default class App extends React.Component {
 						fortMisc={this.state.fortMisc}
 						reflexMisc={this.state.reflexMisc}
 						willMisc={this.state.willMisc}
+
+						meleeEnhance={this.state.meleeEnhance}
+						rangedEnhance={this.state.rangedEnhance}
+						cmbEnhance={this.state.cmbEnhance}
+			
+						meleeMisc={this.state.meleeMisc}
+						rangedMisc={this.state.rangedMisc}
+						cmbMisc={this.state.cmbMisc}
 
 						strengthVal={this.state.strengthVal}
 						strengthBase={this.state.strengthBase}
