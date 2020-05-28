@@ -4,17 +4,13 @@ import ReactModal from 'react-modal';
 import 'react-tabs/style/react-tabs.css';
 import './App.css';
 
+import './components/tabs/overview.js'
 
-
-
-function App() {
-
-
-
+function App() extends React.component {
     return (
         <Tabs>
             <TabList>
-		<Tab>Menu</Tab>
+				<Tab>Menu</Tab>
                 <Tab>Overview</Tab>
                 <Tab>Combat</Tab>
                 <Tab>Skills</Tab>
@@ -30,67 +26,59 @@ function App() {
                 <button type="button">Settings</button>
                 <button type="button">Terms of Service</button>
                 <button type="button">Help</button>
-
             </TabPanel>
+
             <TabPanel>
-            	<form>
-			<div>
-        			<label>
-          				Name:
-          				<input type="text" name="name"/>
-        			</label>
-			</div>
-			<div>
-        			<label>
-          				Race:
-          				<input type="text" name="race"/>
-        			</label>
-			</div>
-			<div>
-        			<label>
-          				Character Level:
-          				<input type="text" name="level"/>
-        			</label>
-			</div>
-			<div>
-        			<label>
-          				Alignment:
-          				<input type="text" name="alignment"/>
-        			</label>
-			</div>
-      		</form>
-			<div>			
-				<p>Max Health:	</p>
-			</div>
-			<div>
-				<p>STR:	</p>
-			</div>
-			<div>
-				<p>DEX:	</p>
-			</div>
-			<div>
-				<p>CON:	</p>
-			</div>
-			<div>
-				<p>INT:	</p>
-			</div>
-			<div>
-				<p>WIS:	</p>
-			</div>
-			<div>
-				<p>CHA:	</p>
-			</div>
+				<OverviewTab
+					name={this.state.charName}
+					race={this.state.charRace}
+					level={this.state.charLevel}
+					alignment={this.state.charAlign}
 
-			<p>Character Description:</p>
-			<textarea>
- 			
-			</textarea>
+					currentHealth={this.state.currentHealth}
+					maxHealth={this.state.maxHealth}
 
-			<p>Backstory:</p>
-			<textarea>
- 			
-			</textarea>
-            </TabPanel>
+					strengthVal={this.state.strengthVal}
+					strengthBase={this.state.strengthBase}
+					strengthInherent={this.state.strengthInherent}
+					strengthEnhance={this.state.strengthEnhance}
+					strengthMisc={this.state.strengthEnhance}
+
+					
+					dexVal={this.state.dexVal}
+					dexBase={this.state.dexBase}
+					dexInherent={this.state.dexInherent}
+					dexEnhance={this.state.dexEnhance}
+					dexMisc={this.state.dexEnhance}
+		
+					conVal={this.state.conVal}
+					conBase={this.state.conBase}
+					conInherent={this.state.conInherent}
+					conEnhance={this.state.conEnhance}
+					conMisc={this.state.conEnhance}
+
+					intVal={this.state.intVal}
+					intBase={this.state.intBase}
+					intInherent={this.state.intInherent}
+					intEnhance={this.state.intEnhance}
+					intMisc={this.state.intEnhance}
+
+					wisdomVal={this.state.wisdomVal}
+					wisdomBase={this.state.wisdomBase}
+					wisdomInherent={this.state.wisdomInherent}
+					wisdomEnhance={this.state.wisdomEnhance}
+					wisdomMisc={this.state.wisdomEnhance}
+
+					charismaVal={this.state.charismaVal}
+					charismaBase={this.state.charismaBase}
+					charismaInherent={this.state.charismaInherent}
+					charismaEnhance={this.state.charismaEnhance}
+					charismaMisc={this.state.charismaEnhance}
+
+					description={this.props.charDescription}
+					backstory={this.props.charBackstory}
+				/>
+			</TabPanel>
 
             <TabPanel>
 
