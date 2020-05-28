@@ -9,6 +9,7 @@ export default class CMDField extends React.Component {
 		var baseline = avgVal / modBracketSize;
 
 		var strengthMod = Math.floor(this.props.strength/modBracketSize) - baseline;
+		
 		var dexMod = Math.floor(this.props.dex/modBracketSize) - baseline;
 		dexMod = (dexMod < this.props.maxDex ? dexMod : this.props.maxDex); 
 
@@ -20,7 +21,7 @@ export default class CMDField extends React.Component {
 				this.props.deflect +
 				this.props.dodge +
 				this.props.size +
-				this.props.bonus +
+				this.props.misc +
 				baseCmd
 			}</label>
 		);

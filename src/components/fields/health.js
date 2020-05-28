@@ -8,7 +8,7 @@ export default class HealthField extends React.Component {
 				<input type="number" 
 					max={this.props.maxValue}
 					min={0}
-					DefaultValue={this.props.value}
+					defaultValue={this.props.value}
 				/> / {this.props.maxValue}
 			</>
 		);

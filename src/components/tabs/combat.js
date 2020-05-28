@@ -80,7 +80,11 @@ export default class CombatTab extends React.Component {
 						maxDex={this.props.maxDex}
 					/><br/>
 					<label>Speed: {this.props.moveSpeed}</label><br/>
+				</div>
 
+				<br/>
+
+				<div>
 					<AttackField
 						name="Melee"
 						bab={this.props.bab}
@@ -101,7 +105,7 @@ export default class CombatTab extends React.Component {
 						bab={this.props.bab}
 						attr={this.props.strengthVal}
 						enhance={this.props.cmbEnhance}
-						misc={this.props.cmdMisc}
+						misc={this.props.cmbMisc}
 					/><br/>
 				</div>
 

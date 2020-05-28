@@ -11,8 +11,8 @@ export default class InitiativeField extends React.Component {
 
 		return (
 			<label>Initiative: {
-				dexBonus +
-				this.props.impr ? 3:0 +
+				dexMod +
+				(this.props.impr ? 3 : 0) +
 				this.props.misc
 			}</label>
 		);

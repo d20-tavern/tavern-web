@@ -7,15 +7,14 @@ export default class SaveField extends React.Component {
 		var baseline = avgVal / modBracketSize;
 
 		var attrMod = Math.floor(this.props.attr/modBracketSize) - baseline;
-		var attrBonus;
 		if(this.props.maxDex) {
-			attrBonus = (attrMod < this.props.maxDex ? attrMod : this.props.maxDex); 
-		} else attrBonus = attrMod;
+			attrMod = (attrMod < this.props.maxDex ? attrMod : this.props.maxDex); 
+		}
 
 		return (
 			<label>{this.props.name}: {
 				this.props.classMod +
-				attrBonus +
+				attrMod +
 				this.props.enhance +
 				this.props.misc
 			}</label>
