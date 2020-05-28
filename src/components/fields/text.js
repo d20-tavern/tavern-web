@@ -1,11 +1,9 @@
-class TextField extends React.component {
+import React from 'react';
+
+export default class TextField extends React.Component {
 	render() {
 		return (
-			<label>{this.props.name}:<input type="text" value={this.props.value} onchange=textChange({this.props.name})/></label>
+			<label>{this.props.name}:<input type="text" value={this.props.value}/></label>
 		);
-	}
-
-	textChange(field) {
-		super(field);
 	}
 }
