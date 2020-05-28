@@ -6,6 +6,7 @@ import './App.css';
 
 import OverviewTab from './components/tabs/overview.js'
 import CombatTab from './components/tabs/combat.js'
+import SkillsTab from './components/tabs/skills.js'
 
 export default class App extends React.Component {
 	constructor(props) {
@@ -99,8 +100,8 @@ export default class App extends React.Component {
 			initMod: 0,
 
 			maxDex: 3,
-			armorPenalty: -5,
-			spellFailure: -3,
+			armorPenalty: -3,
+			spellFailure: 25,
 
 			moveSpeed: 20
 		};
@@ -260,200 +261,18 @@ export default class App extends React.Component {
 				</TabPanel>
 
 				<TabPanel>
-			<div>
-						<button type="button">-</button>
-					Acrobatics:  
-						<button type="button">+</button>
-			</div>
-			<div>
-						<button type="button">-</button>
-					Appraise: 
-						<button type="button">+</button>
-			</div>
-			<div>
-						<button type="button">-</button>
-					Bluff: 
-						<button type="button">+</button>
-			</div>
-			<div>
-						<button type="button">-</button>
-					Climb: 
-						<button type="button">+</button>
-			</div>
-			<div>
-						<button type="button">-</button>
-					Craft: 
-						<button type="button">+</button>
-			</div>
-			<div>
-						<button type="button">-</button>
-					Profession: 
-						<button type="button">+</button>
-			</div>
-			<div>
-						<button type="button">-</button>
-					Local: 
-						<button type="button">+</button>
-			</div>
-			<div>
-						<button type="button">-</button>
-					Handle Animal: 
-						<button type="button">+</button>
-			</div>
-			<div>
-						<button type="button">-</button>
-					Heal: 
-						<button type="button">+</button>
-			</div>
+					<SkillsTab
+						armorPenalty={this.state.armorPenalty}
 
-			<div>
-						<button type="button">-</button>
-					Intimidate: 
-						<button type="button">+</button>
-			</div>
-			<div>
-						<button type="button">-</button>
-					Arcana: 
-						<button type="button">+</button>
-			</div>
-			<div>
-						<button type="button">-</button>
-					Local: 
-						<button type="button">+</button>
-			</div>
-			<div>
-						<button type="button">-</button>
-					Dungeoneering: 
-						<button type="button">+</button>
-			</div>
-			<div>
-						<button type="button">-</button>
-					Disguise: 
-						<button type="button">+</button>
-			</div>
-			<div>
-						<button type="button">-</button>
-					Sense Motive: 
-						<button type="button">+</button>
-			</div>
-			<div>
-						<button type="button">-</button>
-					Nobility: 
-						<button type="button">+</button>
-			</div>
-			<div>
-						<button type="button">-</button>
-					Planes: 
-						<button type="button">+</button>
-			</div>
-			<div>
-						<button type="button">-</button>
-					Religion: 
-						<button type="button">+</button>
-			</div>
-			<div>
-						<button type="button">-</button>
-					Linguistics: 
-						<button type="button">+</button>
-			</div>
-			<div>
-						<button type="button">-</button>
-					Perception: 
-						<button type="button">+</button>
-			</div>
-			<div>
-						<button type="button">-</button>
-					History: 
-						<button type="button">+</button>
-			</div>
-			<div>
-						<button type="button">-</button>
-					Fly: 
-						<button type="button">+</button>
-			</div>
-			<div>
-						<button type="button">-</button>
-					Spellcraft: 
-						<button type="button">+</button>
-			</div>
-			<div>
-						<button type="button">-</button>
-					Stealth: 
-						<button type="button">+</button>
-			</div>
-			<div>
-						<button type="button">-</button>
-					Survival: 
-						<button type="button">+</button>
-			</div>
-			<div>
-						<button type="button">-</button>
-					Swim: 
-						<button type="button">+</button>
-			</div>
-			<div>
-						<button type="button">-</button>
-					Use Magic Device: 
-						<button type="button">+</button>
-			</div>
-			<div>
-						<button type="button">-</button>
-					Ride: 
-						<button type="button">+</button>
-			</div>
-			<div>
-						<button type="button">-</button>
-					Nature: 
-						<button type="button">+</button>
-			</div>
-			<div>
-						<button type="button">-</button>
-					Diplomacy: 
-						<button type="button">+</button>
-			</div>
-			<div>
-						<button type="button">-</button>
-					Engineering: 
-						<button type="button">+</button>
-			</div>
-			<div>
-						<button type="button">-</button>
-					Preform: 
-						<button type="button">+</button>
-			</div>
-			<div>
-						<button type="button">-</button>
-					Disable Device: 
-						<button type="button">+</button>
-			</div>
-			<div>
-						<button type="button">-</button>
-					Geography: 
-						<button type="button">+</button>
-			</div>
-			<div>
-						<button type="button">-</button>
-					Escape Artist: 
-						<button type="button">+</button>
-			</div>
-			<div>
-						<button type="button">-</button>
-					Slight of Hand: 
-						<button type="button">+</button>
-			</div>
-			<div>
-				<p>Languages:</p>
-				<p>Languages that are avilable</p>
-			</div>
-			<div>
-				<p>Feats:</p>
-				<p>Feats that are avilable</p>
-			</div>
-			<div>
-				<p>Special Abilities:</p>
-				<p>Special Abilities that are avilable</p>
-			</div>
+						strengthVal={this.state.strengthVal}
+						dexVal={this.state.dexVal}
+						conVal={this.state.conVal}
+						intVal={this.state.intVal}
+						wisdomVal={this.state.wisdomVal}
+						charismaVal={this.state.charismaVal}
+					/>
 				</TabPanel>
+
 				<TabPanel>
 			<div>
 				<p>Cantrips:</p>
