@@ -119,70 +119,93 @@ export default class App extends React.Component {
 	incrementAttribute(name) {
 		switch(name) {
 			case "Strength":
-				this.setState(prevState => {
-					return {strengthVal: prevState.strengthVal + 1}
-				});
+				if(this.state.strengthVal < 20) {
+					this.setState(prevState => {
+						return {strengthVal: prevState.strengthVal + 1}
+					});
+				}
 				break;
 			case "Dexterity":
-				this.setState(prevState => {
-					return {dexVal: prevState.dexVal + 1}
-				});
+				if(this.state.dexVal < 20) {
+					this.setState(prevState => {
+						return {dexVal: prevState.dexVal + 1}
+					});
+				}
 				break;
 			case "Constitution":
-				this.setState(prevState => {
-					return {conVal: prevState.conVal + 1}
-				});
+				if(this.state.conVal < 20) {
+					this.setState(prevState => {
+						return {conVal: prevState.conVal + 1}
+					});
+				}
 				break;
 			case "Intelligence":
-				this.setState(prevState => {
-					return {intVal: prevState.intVal + 1}
-				});
+				if(this.state.intVal < 20) {
+					this.setState(prevState => {
+						return {intVal: prevState.intVal + 1}
+					});
+				}
 				break;
 			case "Wisdom":
-				this.setState(prevState => {
-					return {wisdomVal: prevState.wisdomVal + 1}
-				});
+				if(this.state.wisdomVal < 20) {
+					this.setState(prevState => {
+						return {wisdomVal: prevState.wisdomVal + 1}
+					});
+				}
 				break;
 			case "Charisma":
-				this.setState(prevState => {
-					return {charismaVal: prevState.charismaVal + 1}
-				});
+				if(this.state.charismaVal < 20) {
+					this.setState(prevState => {
+						return {wisdomVal: prevState.charismaVal + 1}
+					});
+				}
 				break;
-		}
-				
+		}			
 	}
 
 	decrementAttribute(name) {
 		switch(name) {
 			case "Strength":
-				this.setState(prevState => {
-					return {strengthVal: prevState.strengthVal - 1}
-				});
+				if(this.state.strengthVal > 0) {
+					this.setState(prevState => {
+						return {strengthVal: prevState.strengthVal - 1}
+					});
+				}
 				break;
 			case "Dexterity":
-				this.setState(prevState => {
-					return {dexVal: prevState.dexVal - 1}
-				});
+				if(this.state.dexVal > 0) {
+					this.setState(prevState => {
+						return {dexVal: prevState.dexVal - 1}
+					});
+				}
 				break;
 			case "Constitution":
-				this.setState(prevState => {
-					return {conVal: prevState.conVal - 1}
-				});
+				if(this.state.conVal > 0) {
+					this.setState(prevState => {
+						return {conVal: prevState.conVal - 1}
+					});
+				}
 				break;
 			case "Intelligence":
-				this.setState(prevState => {
-					return {intVal: prevState.intVal - 1}
-				});
+				if(this.state.intVal > 0) {
+					this.setState(prevState => {
+						return {intVal: prevState.intVal - 1}
+					});
+				}
 				break;
 			case "Wisdom":
-				this.setState(prevState => {
-					return {wisdomVal: prevState.wisdomVal - 1}
-				});
+				if(this.state.wisdomVal > 0) {
+					this.setState(prevState => {
+						return {wisdomVal: prevState.wisdomVal - 1}
+					});
+				}
 				break;
 			case "Charisma":
-				this.setState(prevState => {
-					return {charismaVal: prevState.charismaVal - 1}
-				});
+				if(this.state.charismaVal > 0) {
+					this.setState(prevState => {
+						return {charismaVal: prevState.charismaVal - 1}
+					});
+				}
 				break;
 		}
 	}
