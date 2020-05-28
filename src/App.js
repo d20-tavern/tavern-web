@@ -47,8 +47,10 @@ const [levels, setLevels]=useState(false)
             <TabPanel>
                 <button type="button" onClick={() => setAccount(true)}>Account</button>
                 <button type="button" onClick={() => setCharacters(true)}>Characters</button>
+		{/*
                 <button type="button" onClick={() => setSettings(true)}>Settings</button>
                 <button type="button" onClick={() => setTerms(true)}>Terms of Service</button>
+		*/}
                 <button type="button" onClick={() => setHelp(true)}>Help</button>
 
 
