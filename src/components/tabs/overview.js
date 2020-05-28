@@ -11,7 +11,7 @@ export default class OverviewTab extends React.Component {
 				<div>
 					<TextField
 						name="Name"
-						value={this.props.characterName}
+						value={this.props.name}
 					/><br/>
 					<label>Race: {this.props.race}</label><br/>
 					<label>Level: {this.props.level}</label><br/>
@@ -30,8 +30,9 @@ export default class OverviewTab extends React.Component {
 						maxValue={this.props.maxHealth}
 					/><br/>
 				</div>
+	
+				<br/>
 
-				//Character Attribute Fields
 				<div>
 					<AttributeField
 						name="Strength" 

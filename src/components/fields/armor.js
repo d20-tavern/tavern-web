@@ -13,13 +13,14 @@ export default class ArmorField extends React.Component {
 		var baseline = avgVal / modBracketSize;
 
 		var dexMod = Math.floor(this.props.dex/modBracketSize) - baseline;
+		var dexBonus = dexMod < this.props.maxDex ? dexMod : this.props.maxDex; 
 
 		return (
 			<div>
 				<label>AC: {
 						this.props.armor +
 						this.props.shield +
-						dexMod +
+						dexBonus +
 						this.props.dodge +
 						this.props.natural +
 						this.props.deflect +
@@ -28,7 +29,7 @@ export default class ArmorField extends React.Component {
 						baseArmor
 				}</label><br/>
 				<label>Touch: {
-						dexMod +
+						dexBonus +
 						this.props.dodge +
 						this.props.deflect +
 						this.props.size +

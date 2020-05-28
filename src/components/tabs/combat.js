@@ -25,18 +25,20 @@ export default class CombatTab extends React.Component {
 						deflect={this.props.deflectAc}
 						natural={this.props.naturalAc}
 						dodge={this.props.dodgeAc}
-						dex={this.props.dexMod}
+						dex={this.props.dexVal}
 						size={this.props.sizeAc}
 						misc={this.props.miscAc}
+						maxDex={this.props.maxDex}
 					/><br/>
 					<CMDField
 						bab={this.props.bab}
-						strength={this.props.strengthMod}
-						dex={this.props.dexMod}
+						strength={this.props.strengthVal}
+						dex={this.props.dexVal}
 						deflect={this.props.deflectAc}
 						dodge={this.props.dodgeAc}
 						size={this.props.sizeAc}
 						misc={this.props.miscAc}
+						maxDex={this.props.maxDex}
 					/><br/>
 					<label>Spell Resistance: {this.props.sr}</label>
 				</div>
@@ -47,21 +49,22 @@ export default class CombatTab extends React.Component {
 					<SaveField
 						name="Fortitude"
 						classMod={this.props.classFortSave}
-						mod={this.props.conMod}
+						attr={this.props.conVal}
 						enhance={this.props.fortEnhance}
 						misc={this.props.fortMisc}
 					/><br/>
 					<SaveField
 						name="Reflex"
-						class={this.props.classReflexSave}
-						mod={this.props.dexMod}
+						classMod={this.props.classReflexSave}
+						attr={this.props.dexVal}
 						enhance={this.props.reflexEnhance}
 						misc={this.props.reflexMisc}
+						maxDex={this.props.maxDex}
 					/><br/>
 					<SaveField
 						name="Will"
-						class={this.props.classWillSave}
-						mod={this.props.wisdomMod}
+						classMod={this.props.classWillSave}
+						attr={this.props.wisdomVal}
 						enhance={this.props.willEnhance}
 						misc={this.props.willMisc}
 					/><br/>
@@ -71,32 +74,34 @@ export default class CombatTab extends React.Component {
 
 				<div>
 					<InitiativeField
-						dex={this.props.dexMod}
+						dex={this.props.dexVal}
 						impr={this.props.improvedInit}
 						misc={this.props.initMod}
+						maxDex={this.props.maxDex}
 					/><br/>
-					<label>Speed: {this.props.moveSpeed}</label>
+					<label>Speed: {this.props.moveSpeed}</label><br/>
 
 					<AttackField
 						name="Melee"
 						bab={this.props.bab}
-						attr={this.props.strengthMod}
+						attr={this.props.strengthVal}
 						enhance={this.props.meleeEnhance}
-						misc={this.props.attackMisc}
+						misc={this.props.meleeMisc}
 					/><br/>
 					<AttackField
 						name="Ranged"
 						bab={this.props.bab}
-						attr={this.props.dexMod}
+						attr={this.props.dexVal}
 						enhance={this.props.rangedEnhance}
-						misc={this.props.attackMisc}
+						misc={this.props.rangedMisc}
+						maxDex={this.props.maxDex}
 					/><br/>
 					<AttackField
 						name="CMB"
 						bab={this.props.bab}
-						attr={this.props.strengthMod}
+						attr={this.props.strengthVal}
 						enhance={this.props.cmbEnhance}
-						misc={this.props.attackMisc}
+						misc={this.props.cmdMisc}
 					/><br/>
 				</div>
 

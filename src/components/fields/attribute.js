@@ -5,6 +5,7 @@ export default class AttributeField extends React.Component {
 		return (
 			<>
 				<button type="button">-</button>
+				<button type="button">+</button>
 				<label>{this.props.name}: {
 					this.props.value +
 					this.props.base +
@@ -12,7 +13,6 @@ export default class AttributeField extends React.Component {
 					this.props.enhance +
 					this.props.misc
 				}</label>
-				<button type="button">+</button>
 			</>
 		);
 	}
