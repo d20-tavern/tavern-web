@@ -5,6 +5,7 @@ import 'react-tabs/style/react-tabs.css';
 import './App.css';
 
 import OverviewTab from './components/tabs/overview.js'
+import CombatTab from './components/tabs/combat.js'
 
 export default class App extends React.Component {
 	constructor(props) {
