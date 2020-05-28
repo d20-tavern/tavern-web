@@ -9,6 +9,7 @@ export default class HealthField extends React.Component {
 					max={this.props.maxValue}
 					min={0}
 					defaultValue={this.props.value}
+					onChange={e => {this.props.ch(e.target.value)}}
 				/> / {this.props.maxValue}
 			</>
 		);

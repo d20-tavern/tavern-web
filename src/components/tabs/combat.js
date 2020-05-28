@@ -17,6 +17,7 @@ export default class CombatTab extends React.Component {
 						name="HP"
 						value={this.props.currentHealth}
 						maxValue={this.props.maxHealth}
+						ch={this.props.chHealth}
 					/><br/>
 					<ArmorField
 						//AC fields
@@ -119,6 +120,8 @@ export default class CombatTab extends React.Component {
 						inherent={this.props.strengthInherent}
 						enhance={this.props.strengthEnhance}
 						misc={this.props.strengthMisc}
+						inc={this.props.incAttr}
+						dec={this.props.decAttr}
 					/><br/>
 					<AttributeField 
 						name="Dexterity" 
@@ -127,6 +130,8 @@ export default class CombatTab extends React.Component {
 						inherent={this.props.dexInherent}
 						enhance={this.props.dexEnhance}
 						misc={this.props.dexMisc}
+						inc={this.props.incAttr}
+						dec={this.props.decAttr}
 					/><br/>
 					<AttributeField 
 						name="Constitution" 
@@ -135,6 +140,8 @@ export default class CombatTab extends React.Component {
 						inherent={this.props.conInherent}
 						enhance={this.props.conEnhance}
 						misc={this.props.conMisc}
+						inc={this.props.incAttr}
+						dec={this.props.decAttr}
 					/><br/>
 					<AttributeField 
 						name="Intelligence" 
@@ -143,6 +150,8 @@ export default class CombatTab extends React.Component {
 						inherent={this.props.intInherent}
 						enhance={this.props.intEnhance}
 						misc={this.props.intMisc}
+						inc={this.props.incAttr}
+						dec={this.props.decAttr}
 					/><br/>
 					<AttributeField 
 						name="Wisdom"
@@ -151,6 +160,8 @@ export default class CombatTab extends React.Component {
 						inherent={this.props.wisdomInherent}
 						enhance={this.props.wisdomEnhance}
 						misc={this.props.wisdomMisc}
+						inc={this.props.incAttr}
+						dec={this.props.decAttr}
 					/><br/>
 					<AttributeField 
 						name="Charisma" 
@@ -159,6 +170,8 @@ export default class CombatTab extends React.Component {
 						inherent={this.props.strengthInherent}
 						enhance={this.props.strengthEnhance}
 						misc={this.props.charismaMisc}
+						inc={this.props.incAttr}
+						dec={this.props.decAttr}
 					/><br/>
 				</div>
 			</div>

@@ -5,7 +5,11 @@ export default class TextField extends React.Component {
 		return (
 			<>
 				<label>{this.props.name}:</label>
-				<input type="text" defaultValue={this.props.value}/>
+				<input 
+					type="text" 
+					defaultValue={this.props.value}
+					onChange={e => {this.props.ch(this.props.name, e.target.value)}}
+				/>
 			</>
 		);
 	}

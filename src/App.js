@@ -12,6 +12,14 @@ export default class App extends React.Component {
 	constructor(props) {
 		super(props);
 
+		//bind functions
+		this.incrementAttribute = this.incrementAttribute.bind(this);
+		this.decrementAttribute = this.decrementAttribute.bind(this);
+		this.incrementSkill = this.incrementSkill.bind(this);
+		this.decrementSkill = this.decrementSkill.bind(this);
+		this.changeText = this.changeText.bind(this);
+		this.changeHealth = this.changeHealth.bind(this);
+
 		/*TODO: ALL of this is placeholder info, just to check math and logic.
 		 * Every single value here will need to be replaced with data nabbed from the server.
 		 * However, for right now, this will function for testing.
@@ -107,6 +115,115 @@ export default class App extends React.Component {
 		};
 	}
 
+	//functions passed to children for updating data
+	incrementAttribute(name) {
+		switch(name) {
+			case "Strength":
+				this.setState(prevState => {
+					return {strengthVal: prevState.strengthVal + 1}
+				});
+				break;
+			case "Dexterity":
+				this.setState(prevState => {
+					return {dexVal: prevState.dexVal + 1}
+				});
+				break;
+			case "Constitution":
+				this.setState(prevState => {
+					return {conVal: prevState.conVal + 1}
+				});
+				break;
+			case "Intelligence":
+				this.setState(prevState => {
+					return {intVal: prevState.intVal + 1}
+				});
+				break;
+			case "Wisdom":
+				this.setState(prevState => {
+					return {wisdomVal: prevState.wisdomVal + 1}
+				});
+				break;
+			case "Charisma":
+				this.setState(prevState => {
+					return {charismaVal: prevState.charismaVal + 1}
+				});
+				break;
+		}
+				
+	}
+
+	decrementAttribute(name) {
+		switch(name) {
+			case "Strength":
+				this.setState(prevState => {
+					return {strengthVal: prevState.strengthVal - 1}
+				});
+				break;
+			case "Dexterity":
+				this.setState(prevState => {
+					return {dexVal: prevState.dexVal - 1}
+				});
+				break;
+			case "Constitution":
+				this.setState(prevState => {
+					return {conVal: prevState.conVal - 1}
+				});
+				break;
+			case "Intelligence":
+				this.setState(prevState => {
+					return {intVal: prevState.intVal - 1}
+				});
+				break;
+			case "Wisdom":
+				this.setState(prevState => {
+					return {wisdomVal: prevState.wisdomVal - 1}
+				});
+				break;
+			case "Charisma":
+				this.setState(prevState => {
+					return {charismaVal: prevState.charismaVal - 1}
+				});
+				break;
+		}
+	}
+
+	incrementSkill(name) {
+	}
+
+	decrementSkill(name) {
+	}
+
+	changeText(name, value) {
+		switch(name) {
+			case "Name":
+				this.setState({
+					charName: value
+				});
+				break;
+			case "Alignment":
+				this.setState({
+					charAlignment: value
+				});
+				break;
+			case "Description":
+				this.setState({
+					charDescription: value
+				});
+				break;
+			case "Backstory":
+				this.setState({
+					charBackstory: value
+				});
+				break;
+		}
+	}
+
+	changeHealth(value) {
+		this.setState({
+			currentHealth: value
+		});
+	}
+
 	render() {
 		return (
 			<Tabs>
@@ -177,6 +294,11 @@ export default class App extends React.Component {
 
 						description={this.state.charDescription}
 						backstory={this.state.charBackstory}
+
+						incAttr={this.incrementAttribute}
+						decAttr={this.decrementAttribute}
+						chText={this.changeText}
+						chHealth={this.changeHealth}
 					/>
 				</TabPanel>
 
@@ -257,6 +379,9 @@ export default class App extends React.Component {
 						charismaEnhance={this.state.charismaEnhance}
 						charismaMisc={this.state.charismaMisc}
 
+						chHealth={this.changeHealth}
+						incAttr={this.incrementAttribute}
+						decAttr={this.decrementAttribute}
 					/>
 				</TabPanel>
 
