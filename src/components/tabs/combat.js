@@ -5,7 +5,7 @@ import "../fields/cmd.js"
 import "../fields/save.js"
 import "../fields/initiative.js"
 
-class CombatTab extends React.Component {
+class CombatTab extends React.component {
 	render() {
 		return (
 			//Defensive Stats

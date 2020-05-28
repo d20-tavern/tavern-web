@@ -1,4 +1,4 @@
-class InitiativeField extends React.Component {
+class InitiativeField extends React.component {
 	render() {
 		return (
 			<label>Initiative: {
