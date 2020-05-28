@@ -11,7 +11,7 @@ export default class AttributeField extends React.Component {
 					this.props.inherent +
 					this.props.enhance +
 					this.props.misc
-				}</label>
+				}	</label>
 				<button type="button">+</button>
 			</>
 		);

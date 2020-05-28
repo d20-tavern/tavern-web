@@ -1,9 +1,12 @@
-class ArmorField extends React.component {
+import React from 'react';
+
+class ArmorField extends React.Component {
 
 	render() {
 		var baseArmor = 10;
 		return (
-			<label>AC: {
+			<>
+				<label>AC: {
 					this.props.armor +
 					this.props.shield +
 					this.props.dex +
@@ -13,16 +16,16 @@ class ArmorField extends React.component {
 					this.props.size +
 					this.props.misc +
 					baseArmor
-			}</label>
-			<label>Touch: {
+				}</label>
+				<label>Touch: {
 					this.props.dex +
 					this.props.dodge +
 					this.props.deflect +
 					this.props.size +
 					this.props.misc +
 					baseArmor
-			}</label>
-			<label>Flat-Footed: {
+				}</label>
+				<label>Flat-Footed: {
 					this.props.armor +
 					this.props.shield +
 					this.props.natural +
@@ -30,7 +33,8 @@ class ArmorField extends React.component {
 					this.props.size +
 					this.props.misc +
 					baseArmor
-			}</label>
+				}</label>
+			</>
 		);
 	}
 }
