@@ -7,6 +7,60 @@ import './App.css';
 import OverviewTab from './components/tabs/overview.js'
 
 export default class App extends React.Component {
+	constructor(props) {
+		super(props);
+
+		/*TODO: ALL of this is placeholder info, just to check math and logic.
+		 * Every single value here will need to be replaced with data nabbed from the server.
+		 * However, for right now, this will function for testing.
+		 */
+		this.state = {
+			charName: "John Doe",
+			charRace: "Human",
+			charLevel: 1,
+			charAlignment: "True Neutral",
+			charGender: "Male",
+
+			charDescription: "Very generic.",
+			charBackstory: "Not much to speak of.",
+
+			strengthVal: 10,
+			dexVal: 10,
+			conVal: 10,
+			intVal: 10,
+			wisdomVal: 10,
+			charismaVal: 10,
+
+			strengthBase: 0,
+			dexBase: 0,
+			conBase: 0,
+			intBase: 0,
+			wisdomBase: 0,
+			charismaBase: 0,
+
+			strengthInherent: 0,
+			dexInherent: 0,
+			conInherent: 0,
+			intInherent: 0,
+			wisdomInherent: 0,
+			charismaInherent: 0,
+
+			strengthEnhance: 0,
+			dexEnhance: 0,
+			conEnhance: 0,
+			intEnhance: 0,
+			wisdomEnhance: 0,
+			charismaEnhance: 0,
+
+			strengthMisc: 0,
+			dexMisc: 0,
+			conMisc: 0,
+			intMisc: 0,
+			wisdomMisc: 0,
+			charismaMisc: 0
+		};
+	}
+
 	render() {
 		return (
 			<Tabs>
@@ -34,7 +88,7 @@ export default class App extends React.Component {
 						name={this.state.charName}
 						race={this.state.charRace}
 						level={this.state.charLevel}
-						alignment={this.state.charAlign}
+						alignment={this.state.charAlignment}
 
 						currentHealth={this.state.currentHealth}
 						maxHealth={this.state.maxHealth}
@@ -43,38 +97,38 @@ export default class App extends React.Component {
 						strengthBase={this.state.strengthBase}
 						strengthInherent={this.state.strengthInherent}
 						strengthEnhance={this.state.strengthEnhance}
-						strengthMisc={this.state.strengthEnhance}
+						strengthMisc={this.state.strengthMisc}
 
 						
 						dexVal={this.state.dexVal}
 						dexBase={this.state.dexBase}
 						dexInherent={this.state.dexInherent}
 						dexEnhance={this.state.dexEnhance}
-						dexMisc={this.state.dexEnhance}
+						dexMisc={this.state.dexMisc}
 			
 						conVal={this.state.conVal}
 						conBase={this.state.conBase}
 						conInherent={this.state.conInherent}
 						conEnhance={this.state.conEnhance}
-						conMisc={this.state.conEnhance}
+						conMisc={this.state.conMisc}
 
 						intVal={this.state.intVal}
 						intBase={this.state.intBase}
 						intInherent={this.state.intInherent}
 						intEnhance={this.state.intEnhance}
-						intMisc={this.state.intEnhance}
+						intMisc={this.state.intMisc}
 
 						wisdomVal={this.state.wisdomVal}
 						wisdomBase={this.state.wisdomBase}
 						wisdomInherent={this.state.wisdomInherent}
 						wisdomEnhance={this.state.wisdomEnhance}
-						wisdomMisc={this.state.wisdomEnhance}
+						wisdomMisc={this.state.wisdomMisc}
 
 						charismaVal={this.state.charismaVal}
 						charismaBase={this.state.charismaBase}
 						charismaInherent={this.state.charismaInherent}
 						charismaEnhance={this.state.charismaEnhance}
-						charismaMisc={this.state.charismaEnhance}
+						charismaMisc={this.state.charismaMisc}
 
 						description={this.props.charDescription}
 						backstory={this.props.charBackstory}
@@ -82,88 +136,8 @@ export default class App extends React.Component {
 				</TabPanel>
 
 				<TabPanel>
-
-				<div>
-						<label>
-							MAX HP:
-							<input type="text" name="maxHP"/>
-						</label>
-				</div>
-				<div>
-						<label>
-							HP:
-							<input type="text" name="hp"/>
-						</label>
-				</div>
-				<div>
-						<label>
-							AC:
-							<input type="text" name="AC"/>
-						</label>
-				</div>
-				<div>
-						<label>
-						Touch:
-						<input type="text" name="Touch"/>
-						</label>
-				</div>
-
-				<div>
-					<p>STR:	</p>
-				</div>
-				<div>
-					<p>DEX:	</p>
-				</div>
-				<div>
-					<p>CON:	</p>
-				</div>
-				<div>
-					<p>INT:	</p>
-				</div>
-				<div>
-					<p>WIS:	</p>
-				</div>
-				<div>
-					<p>CHA:	</p>
-				</div>
-
-				<div>
-					<p>Fortitude:	</p>
-				</div>
-				<div>
-					<p>Reflect:	</p>
-				</div>
-				<div>
-					<p>Will:	</p>
-				</div>
-
-
-				<div>
-					<p>Available Spells:</p>
-					<p>Spells that are available</p>
-				</div>
-
-				<div>
-					<p>Base Attack Bonus:	</p>
-				</div>
-				<div>
-					<p>Spell Ressistance:	</p>
-				</div>
-				<div>
-					<p>Flat Footed:	</p>
-				</div>
-				<div>
-					<p>CMD:	</p>
-				</div>
-				<div>
-					<p>Inititive:	</p>
-				</div>
-
-				<div>
-					<p>Abilities:</p>
-					<p>Abilities that are available</p>
-				</div>
-
+					<CombatTab
+					/>
 				</TabPanel>
 
 				<TabPanel>
