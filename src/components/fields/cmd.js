@@ -1,4 +1,6 @@
-class CMDField extends React.component {
+import React from 'react';
+
+export default class CMDField extends React.Component {
 	render() {
 		var baseCmd = 10;
 		return (
@@ -13,9 +15,5 @@ class CMDField extends React.component {
 				baseCmd
 			}</label>
 		);
-	}
-
-	textChange(field) {
-		super(field);
 	}
 }

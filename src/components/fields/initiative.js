@@ -1,4 +1,6 @@
-class InitiativeField extends React.component {
+import React from 'react';
+
+export default class InitiativeField extends React.Component {
 	render() {
 		return (
 			<label>Initiative: {
