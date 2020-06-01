@@ -2,7 +2,6 @@ import React from 'react';
 import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
 import ReactModal from 'react-modal';
 import 'react-tabs/style/react-tabs.css';
-import './App.css';
 
 import OverviewTab from './components/tabs/overview.js'
 import CombatTab from './components/tabs/combat.js'
@@ -111,109 +110,57 @@ export default class App extends React.Component {
 			armorPenalty: -3,
 			spellFailure: 25,
 
-			moveSpeed: 20
+			moveSpeed: 20,
+
+			lv1SpellSlots: 0,
+			lv2SpellSlots: 0,
+			lv3SpellSlots: 0,
+			lv4SpellSlots: 0,
+			lv5SpellSlots: 0,
+			lv6SpellSlots: 0,
+			lv7SpellSlots: 0,
+			lv8SpellSlots: 0,
+			lv9SpellSlots: 0,
+
+			isPreparedCaster: false,
+
+			spells: Spell[],
+			feats: Feat[],
+			items: Item[],
+
 		};
 	}
 
-	//functions passed to children for updating data
-	incrementAttribute(name) {
-		switch(name) {
-			case "Strength":
-				if(this.state.strengthVal < 20) {
-					this.setState(prevState => {
-						return {strengthVal: prevState.strengthVal + 1}
-					});
-				}
-				break;
-			case "Dexterity":
-				if(this.state.dexVal < 20) {
-					this.setState(prevState => {
-						return {dexVal: prevState.dexVal + 1}
-					});
-				}
-				break;
-			case "Constitution":
-				if(this.state.conVal < 20) {
-					this.setState(prevState => {
-						return {conVal: prevState.conVal + 1}
-					});
-				}
-				break;
-			case "Intelligence":
-				if(this.state.intVal < 20) {
-					this.setState(prevState => {
-						return {intVal: prevState.intVal + 1}
-					});
-				}
-				break;
-			case "Wisdom":
-				if(this.state.wisdomVal < 20) {
-					this.setState(prevState => {
-						return {wisdomVal: prevState.wisdomVal + 1}
-					});
-				}
-				break;
-			case "Charisma":
-				if(this.state.charismaVal < 20) {
-					this.setState(prevState => {
-						return {wisdomVal: prevState.charismaVal + 1}
-					});
-				}
-				break;
-		}			
-	}
+	changeAttribute(name, value) {
+		if(value > 0 && <= 20) {
+			switch(name) {
+				case "Strength":
+					this.setState({strengthVal: value});
+					break;
 
-	decrementAttribute(name) {
-		switch(name) {
-			case "Strength":
-				if(this.state.strengthVal > 0) {
-					this.setState(prevState => {
-						return {strengthVal: prevState.strengthVal - 1}
-					});
-				}
-				break;
-			case "Dexterity":
-				if(this.state.dexVal > 0) {
-					this.setState(prevState => {
-						return {dexVal: prevState.dexVal - 1}
-					});
-				}
-				break;
-			case "Constitution":
-				if(this.state.conVal > 0) {
-					this.setState(prevState => {
-						return {conVal: prevState.conVal - 1}
-					});
-				}
-				break;
-			case "Intelligence":
-				if(this.state.intVal > 0) {
-					this.setState(prevState => {
-						return {intVal: prevState.intVal - 1}
-					});
-				}
-				break;
-			case "Wisdom":
-				if(this.state.wisdomVal > 0) {
-					this.setState(prevState => {
-						return {wisdomVal: prevState.wisdomVal - 1}
-					});
-				}
-				break;
-			case "Charisma":
-				if(this.state.charismaVal > 0) {
-					this.setState(prevState => {
-						return {charismaVal: prevState.charismaVal - 1}
-					});
-				}
-				break;
+				case "Dexterity":
+					this.setState({dexVal: value});
+					break;
+
+				case "Constitution":
+					this.setState({conVal: value});
+					break;
+
+				case "Intelligence":
+						this.setState({intVal: value});
+					break;
+
+				case "Wisdom":
+						this.setState({wisdomVal: value});
+					break;
+
+				case "Charisma":
+						this.setState({charismaVal: value});
+					break;
 		}
 	}
 
-	incrementSkill(name) {
-	}
-
-	decrementSkill(name) {
+	changeSkill(name, value) {
 	}
 
 	changeText(name, value) {
@@ -249,17 +196,62 @@ export default class App extends React.Component {
 
 	render() {
 		return (
+			<TabList>
+				<Tab>Menu</Tab>
+				<Tab>Overview</Tab>
+				<Tab>Combat</Tab>
+				<Tab>Skills</Tab>
+				<Tab>Spells</Tab>
+				<Tab>Inventory</Tab>
+				<Tab>Levels</Tab>
+			</TabList>
 			<Tabs>
-				<TabList>
-					<Tab>Menu</Tab>
-					<Tab>Overview</Tab>
-					<Tab>Combat</Tab>
-					<Tab>Skills</Tab>
-					<Tab>Spells</Tab>
-					<Tab>Inventory</Tab>
-					<Tab>Levels</Tab>
-				</TabList>
+				<TabPanel>
+					<button type="button" onClick={() => setAccount(true)}>Account</button>
+					<button type="button" onClick={() => setCharacters(true)}>Characters</button>
+					{/*
+					<button type="button" onClick={() => setSettings(true)}>Settings</button>
+					<button type="button" onClick={() => setTerms(true)}>Terms of Service</button>
+					*/}
+					<button type="button" onClick={() => setHelp(true)}>Help</button>
 
+					<ReactModal isOpen={account}>
+						<button type="button" onClick={() => setAccount(false)}>X</button>
+						<div>
+							<label>
+								<p>
+									Username:
+									<input type="text" name="name"/>
+								</p>
+							</label>
+					
+							<label>
+								<p>
+									Password:
+									<input type="text" name="race"/>
+								</p>
+							</label>
+							<button type="button">ENTER</button>
+						</div>
+					</ReactModal>
+					<ReactModal isOpen={characters}>
+						<button type="button" onClick={() => setCharacters(false)}>X</button>
+						<p>List of characters, and the ability to pick or delete one</p>
+						<button type="button">+</button>
+					</ReactModal>
+					<ReactModal isOpen={settings}>
+						<button type="button" onClick={() => setSettings(false)}>X</button>
+						<p>No settings</p>
+					</ReactModal>
+					<ReactModal isOpen={terms}>
+						<button type="button" onClick={() => setTerms(false)}>X</button>
+						<p>TBD</p>
+					</ReactModal>
+					<ReactModal isOpen={help}>
+						<button type="button" onClick={() => setHelp(false)}>X</button>
+						<p>an overview of every tab and what it does as well as contact information at the end in the form of our emails</p>
+					</ReactModal>
+				</TabPanel>
 
 				<TabPanel>
 					<button type="button">Account</button>
@@ -510,5 +502,154 @@ export default class App extends React.Component {
 			</Tabs>
 		);
 	}
+		<div>
+			<p>Languages: <button type="button" onClick={() => setLanguages(true)}>Edit</button></p>
+			<p>Languages that are avilable</p>
+		</div>
+		<ReactModal isOpen={languages}>
+		 	<button type="button" onClick={() => setLanguages(false)}>X</button>
+			<p>Allows you to delete a current item or add a new one</p>
+		 	<button type="button">+</button>
+		</ReactModal>
+		<div>
+			<p>Feats: <button type="button" onClick={() => setFeats(true)}>Edit</button></p>
+			<p>Feats that are avilable</p>
+		</div>
+		<ReactModal isOpen={feats}>
+		 	<button type="button" onClick={() => setFeats(false)}>X</button>
+			<p>Allows you to delete a current item or add a new one</p>
+		 	<button type="button">+</button>
+		</ReactModal>
+		<div>
+			<p>Special Abilities: <button type="button" onClick={() => setAbilities(true)}>Edit</button></p>
+			<p>Special Abilities that are avilable</p>
+		</div>
+		<ReactModal isOpen={abilities}>
+		 	<button type="button" onClick={() => setAbilities(false)}>X</button>
+			<p>Allows you to delete a current item or add a new one</p>
+		 	<button type="button">+</button>
+		</ReactModal>
+			</TabPanel>
+			<TabPanel>
+		<div>
+			<p>Cantrips: <button type="button" onClick={() => setCantrips(true)}>Edit</button></p>
+			<p>Cantrips that are avilable</p>
+		</div>
+		<ReactModal isOpen={cantrips}>
+		 	<button type="button" onClick={() => setCantrips(false)}>X</button>
+			<p>Allows you to delete a current item or add a new one</p>
+		 	<button type="button">+</button>
+		</ReactModal>
+		<div>
+			<p>Prepared Spells: <button type="button" onClick={() => setPrepared(true)}>Edit</button></p>
+			<p>Prepared Spells that are avilable</p>
+		</div>
+		<ReactModal isOpen={prepared}>
+		 	<button type="button" onClick={() => setPrepared(false)}>X</button>
+			<p>Allows you to delete a current item or add a new one</p>
+		 	<button type="button">+</button>
+		</ReactModal>
+		<div>
+			<p>Active Spell Effects Abilities: <button type="button" onClick={() => setActive(true)}>Edit</button></p>
+			<p>Active Spell Effects that are avilable</p>
+		</div>
+		<ReactModal isOpen={active}>
+		 	<button type="button" onClick={() => setActive(false)}>X</button>
+			<p>Allows you to delete a current item or add a new one</p>
+		 	<button type="button">+</button>
+		</ReactModal>
+		<h2>Spell Slots</h2>
+		<div>
+			Level	Max	Current
+		</div>
+		<div>
+			Level 1:
+		</div>
+		<div>
+			Level 2:
+		</div>
+		<div>
+			Level 3:
+		</div>
+		<div>
+			Level 4:
+		</div>
+		<div>
+			Level 5:
+		</div>
+		<div>
+			Level 6:
+		</div>
+		<div>
+			Level 7:
+		</div>
+		<div>
+			Level 8:
+		</div>
+		<div>
+			Level 9:
+		</div>
+		<div>
+			<p>Known Spells: <button type="button" onClick={() => setKnown(true)}>Edit</button></p>
+			<p>Known Spells that are available</p>
+		</div>
+		<ReactModal isOpen={known}>
+		 	<button type="button" onClick={() => setKnown(false)}>X</button>
+			<p>Allows you to delete a current item or add a new one</p>
+		 	<button type="button">+</button>
+		</ReactModal>
+			</TabPanel>
+
+			<TabPanel>
+				<h3>Currency</h3>
+		<div>
+		  		Platinum:
+		  		<input type="number" name="platinum"/>
+		</div>
+		<div>
+		  		Gold:
+		  		<input type="number" name="gold"/>
+		</div>
+		<div>
+		  		Silver:
+		  		<input type="number" name="silver"/>
+		</div>
+		<div>
+		  		Copper:
+		  		<input type="number" name="copper"/>
+		</div>
+		<div>
+			<p>Equipment</p>
+			<p>Equipment that is available</p>
+					<button type="button" onClick={() => setEquipment(true)}>Edit</button>
+		</div>
+		<ReactModal isOpen={equipment}>
+		 	<button type="button" onClick={() => setEquipment(false)}>X</button>
+			<p>Allows you to delete a current item or add a new one, if an item is in a current slot already then it replaces it</p>
+		 	<button type="button">+</button>
+		</ReactModal>
+		<div>
+			<p>Inventory</p>
+			<p>Inventory that is available</p>
+					<button type="button" onClick={() => setBags(true)}>Edit</button>
+		</div>
+		<ReactModal isOpen={bags}>
+		 	<button type="button" onClick={() => setBags(false)}>X</button>
+			<p>Allows you to delete a current item or add a new one</p>
+		 	<button type="button">+</button>
+		</ReactModal>
+			</TabPanel>
+
+			<TabPanel>
+				<button type="button" onClick={() => setLevels(true)}>Change</button>
+		<p>Classes and levels</p>
+		<ReactModal isOpen={levels}>
+		 	<button type="button" onClick={() => setLevels(false)}>X</button>
+			<p>Allows you to edit or delete a current item or add a new one</p>
+		 	<button type="button">+</button>
+		</ReactModal>
+			</TabPanel>
+		</Tabs>
+	);
 }
 
