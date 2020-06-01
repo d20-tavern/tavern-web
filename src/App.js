@@ -12,10 +12,8 @@ export default class App extends React.Component {
 		super(props);
 
 		//bind functions
-		this.incrementAttribute = this.incrementAttribute.bind(this);
-		this.decrementAttribute = this.decrementAttribute.bind(this);
-		this.incrementSkill = this.incrementSkill.bind(this);
-		this.decrementSkill = this.decrementSkill.bind(this);
+		this.changeAttribute = this.changeAttribute.bind(this);
+		this.changeSkill = this.changeSkill.bind(this);
 		this.changeText = this.changeText.bind(this);
 		this.changeHealth = this.changeHealth.bind(this);
 
@@ -24,6 +22,13 @@ export default class App extends React.Component {
 		 * However, for right now, this will function for testing.
 		 */
 		this.state = {
+			account: false,
+			characters: false,
+			settings: false,
+			terms: false,
+			help: false,
+
+
 			charName: "John Doe",
 			charRace: "Human",
 			charLevel: 1,
@@ -124,15 +129,17 @@ export default class App extends React.Component {
 
 			isPreparedCaster: false,
 
+			/*
 			spells: Spell[],
 			feats: Feat[],
 			items: Item[],
+			*/
 
 		};
 	}
 
 	changeAttribute(name, value) {
-		if(value > 0 && <= 20) {
+		if(value > 0 && value <= 20) {
 			switch(name) {
 				case "Strength":
 					this.setState({strengthVal: value});
@@ -157,6 +164,7 @@ export default class App extends React.Component {
 				case "Charisma":
 						this.setState({charismaVal: value});
 					break;
+			}
 		}
 	}
 
@@ -196,27 +204,28 @@ export default class App extends React.Component {
 
 	render() {
 		return (
-			<TabList>
-				<Tab>Menu</Tab>
-				<Tab>Overview</Tab>
-				<Tab>Combat</Tab>
-				<Tab>Skills</Tab>
-				<Tab>Spells</Tab>
-				<Tab>Inventory</Tab>
-				<Tab>Levels</Tab>
-			</TabList>
 			<Tabs>
-				<TabPanel>
-					<button type="button" onClick={() => setAccount(true)}>Account</button>
-					<button type="button" onClick={() => setCharacters(true)}>Characters</button>
-					{/*
-					<button type="button" onClick={() => setSettings(true)}>Settings</button>
-					<button type="button" onClick={() => setTerms(true)}>Terms of Service</button>
-					*/}
-					<button type="button" onClick={() => setHelp(true)}>Help</button>
+				<TabList>
+					<Tab>Menu</Tab>
+					<Tab>Overview</Tab>
+					<Tab>Combat</Tab>
+					<Tab>Skills</Tab>
+					<Tab>Spells</Tab>
+					<Tab>Inventory</Tab>
+					<Tab>Levels</Tab>
+				</TabList>
 
-					<ReactModal isOpen={account}>
-						<button type="button" onClick={() => setAccount(false)}>X</button>
+				<TabPanel>
+					<button type="button" onClick={() => {this.setState({account: true})}}>Account</button>
+					<button type="button" onClick={() => {this.setState({characters: true})}}>Characters</button>
+					{/*
+					<button type="button" onClick={() => {this.setState({settings: true})}}>Settings</button>
+					<button type="button" onClick={() => {this.setState({terms: true})}}>Terms of Service</button>
+					*/}
+					<button type="button" onClick={() => {this.setState({help: true})}}>Help</button>
+
+					<ReactModal isOpen={this.state.account}>
+						<button type="button" onClick={() => {this.setState({account: true})}}>X</button>
 						<div>
 							<label>
 								<p>
@@ -228,37 +237,29 @@ export default class App extends React.Component {
 							<label>
 								<p>
 									Password:
-									<input type="text" name="race"/>
+									<input type="text" name="pass"/>
 								</p>
 							</label>
 							<button type="button">ENTER</button>
 						</div>
 					</ReactModal>
-					<ReactModal isOpen={characters}>
-						<button type="button" onClick={() => setCharacters(false)}>X</button>
+					<ReactModal isOpen={this.state.characters}>
+						<button type="button" onClick={() => {this.setState({characters: false})}}>X</button>
 						<p>List of characters, and the ability to pick or delete one</p>
 						<button type="button">+</button>
 					</ReactModal>
-					<ReactModal isOpen={settings}>
-						<button type="button" onClick={() => setSettings(false)}>X</button>
+					<ReactModal isOpen={this.state.settings}>
+						<button type="button" onClick={() => {this.setState({settings: false})}}>X</button>
 						<p>No settings</p>
 					</ReactModal>
-					<ReactModal isOpen={terms}>
-						<button type="button" onClick={() => setTerms(false)}>X</button>
+					<ReactModal isOpen={this.state.terms}>
+						<button type="button" onClick={() => {this.setState({terms: false})}}>X</button>
 						<p>TBD</p>
 					</ReactModal>
-					<ReactModal isOpen={help}>
-						<button type="button" onClick={() => setHelp(false)}>X</button>
+					<ReactModal isOpen={this.state.help}>
+						<button type="button" onClick={() => {this.setState({help: false})}}>X</button>
 						<p>an overview of every tab and what it does as well as contact information at the end in the form of our emails</p>
 					</ReactModal>
-				</TabPanel>
-
-				<TabPanel>
-					<button type="button">Account</button>
-					<button type="button">Characters</button>
-					<button type="button">Settings</button>
-					<button type="button">Terms of Service</button>
-					<button type="button">Help</button>
 				</TabPanel>
 
 				<TabPanel>
@@ -310,8 +311,7 @@ export default class App extends React.Component {
 						description={this.state.charDescription}
 						backstory={this.state.charBackstory}
 
-						incAttr={this.incrementAttribute}
-						decAttr={this.decrementAttribute}
+						updateAttr={this.changeAttribute}
 						chText={this.changeText}
 						chHealth={this.changeHealth}
 					/>
@@ -395,8 +395,7 @@ export default class App extends React.Component {
 						charismaMisc={this.state.charismaMisc}
 
 						chHealth={this.changeHealth}
-						incAttr={this.incrementAttribute}
-						decAttr={this.decrementAttribute}
+						updateAttr={this.changeAttribute}
 					/>
 				</TabPanel>
 
@@ -502,6 +501,9 @@ export default class App extends React.Component {
 			</Tabs>
 		);
 	}
+}
+
+		/* TODO: Finish resolving merge conflict, put modal into tabs
 		<div>
 			<p>Languages: <button type="button" onClick={() => setLanguages(true)}>Edit</button></p>
 			<p>Languages that are avilable</p>
@@ -652,4 +654,4 @@ export default class App extends React.Component {
 		</Tabs>
 	);
 }
-
+*/
