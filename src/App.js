@@ -1,423 +1,548 @@
-import React, {useState} from 'react';
+import React from 'react';
 import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
 import ReactModal from 'react-modal';
 import 'react-tabs/style/react-tabs.css';
-import './App.css';
+
+import OverviewTab from './components/tabs/overview.js'
+import CombatTab from './components/tabs/combat.js'
+import SkillsTab from './components/tabs/skills.js'
+import SpellsTab from './components/tabs/spells.js'
+import InventoryTab from './components/tabs/inventory.js'
+import LevelsTab from './components/tabs/levels.js'
+
+export default class App extends React.Component {
+	constructor(props) {
+		super(props);
+
+		//bind functions
+		this.changeAttribute = this.changeAttribute.bind(this);
+		this.changeSkill = this.changeSkill.bind(this);
+		this.changeText = this.changeText.bind(this);
+		this.changeHealth = this.changeHealth.bind(this);
+		this.updateMoney = this.updateMoney.bind(this);
+
+		this.addToList = this.addToList.bind(this);
+		this.removeFromList = this.removeFromList.bind(this);
+
+		/*TODO: ALL of this is placeholder info, just to check math and logic.
+		 * Every single value here will need to be replaced with data nabbed from the server.
+		 * However, for right now, this will function for testing.
+		 */
+		this.state = {
+			account: false,
+			characters: false,
+			settings: false,
+			terms: false,
+			help: false,
 
 
+			charName: "John Doe",
+			charRace: "Human",
+			charLevel: 1,
+			charAlignment: "True Neutral",
+			charGender: "Male",
 
+			charDescription: "Very generic.",
+			charBackstory: "Not much to speak of.",
 
-function App() {
-const [account, setAccount]=useState(false)
-const [characters, setCharacters]=useState(false)
-const [settings, setSettings]=useState(false)
-const [terms, setTerms]=useState(false)
-const [help, setHelp]=useState(false)
+			currentHealth: 50,
+			maxHealth: 50,
 
+			strengthVal: 16,
+			dexVal: 12,
+			conVal: 12,
+			intVal: 10,
+			wisdomVal: 8,
+			charismaVal: 10,
 
-const [languages, setLanguages]=useState(false)
-const [feats, setFeats]=useState(false)
-const [abilities, setAbilities]=useState(false)
+			strengthBase: 2,
+			dexBase: 1,
+			conBase: 0,
+			intBase: 0,
+			wisdomBase: 0,
+			charismaBase: 0,
 
+			strengthInherent: 0,
+			dexInherent: 0,
+			conInherent: 0,
+			intInherent: 0,
+			wisdomInherent: 0,
+			charismaInherent: 0,
 
-const [cantrips, setCantrips]=useState(false)
-const [prepared, setPrepared]=useState(false)
-const [active, setActive]=useState(false)
-const [known, setKnown]=useState(false)
+			strengthEnhance: 0,
+			dexEnhance: 0,
+			conEnhance: 0,
+			intEnhance: 0,
+			wisdomEnhance: 0,
+			charismaEnhance: 0,
 
-const [equipment, setEquipment]=useState(false)
-const [bags, setBags]=useState(false)
+			strengthMisc: 0,
+			dexMisc: 0,
+			conMisc: 0,
+			intMisc: 0,
+			wisdomMisc: 0,
+			charismaMisc: 0,
 
-const [levels, setLevels]=useState(false)
+			armorAc: 5,
+			shieldAc: 3,
+			sizeAc: 0,
+			dodgeAc: -1,
+			deflectAc: 1,
+			naturalAc: 0,
+			miscAc: 0,
 
+			sr: 0,
 
-    return (
-	<Tabs>
-		<TabList>
-			<Tab>Menu</Tab>
-            		<Tab>Overview</Tab>
-            		<Tab>Combat</Tab>
-            		<Tab>Skills</Tab>
-            		<Tab>Spells</Tab>
-            		<Tab>Inventory</Tab>
-            		<Tab>Levels</Tab>
-		</TabList>
+			classFortSave: 5,
+			classReflexSave: 3,
+			classWillSave: 2,
 
+			fortEnhance: 0,
+			reflexEnhance: 0,
+			willEnhance: 0,
 
-            <TabPanel>
-                <button type="button" onClick={() => setAccount(true)}>Account</button>
-                <button type="button" onClick={() => setCharacters(true)}>Characters</button>
-		{/*
-                <button type="button" onClick={() => setSettings(true)}>Settings</button>
-                <button type="button" onClick={() => setTerms(true)}>Terms of Service</button>
-		*/}
-                <button type="button" onClick={() => setHelp(true)}>Help</button>
+			fortMisc: 0,
+			reflexMisc: 0,
+			willMisc: 0,
 
+			bab: 3,
 
-		<ReactModal isOpen={account}>
-		 	<button type="button" onClick={() => setAccount(false)}>X</button>
-			<div>
-        			<label>
-					<p>
-          					Username:
-          					<input type="text" name="name"/>
-					</p>
-        			</label>
-				
-        			<label>
-					<p>
-          					Password:
-          					<input type="text" name="race"/>
-					</p>
-        			</label>
-		 		<button type="button">ENTER</button>
-			</div>
-		</ReactModal>
-		<ReactModal isOpen={characters}>
-		 	<button type="button" onClick={() => setCharacters(false)}>X</button>
-			<p>List of characters, and the ability to pick or delete one</p>
-		 	<button type="button">+</button>
-		</ReactModal>
-		<ReactModal isOpen={settings}>
-		 	<button type="button" onClick={() => setSettings(false)}>X</button>
-			<p>No settings</p>
-		</ReactModal>
-		<ReactModal isOpen={terms}>
-		 	<button type="button" onClick={() => setTerms(false)}>X</button>
-			<p>TBD</p>
-		</ReactModal>
-		<ReactModal isOpen={help}>
-		 	<button type="button" onClick={() => setHelp(false)}>X</button>
-			<p>an overview of every tab and what it does as well as contact information at the end in the form of our emails</p>
-		</ReactModal>
-            </TabPanel>
-            <TabPanel>
-            	<form>
-			<div>
-        			<label>
-          				Name:
-          				<input type="text" name="name"/>
-        			</label>
-			</div>
-			<div>
-        			<label>
-          				Race:
-          				<input type="text" name="race"/>
-        			</label>
-			</div>
-			<div>
-        			<label>
-          				Character Level:
-          				<input type="text" name="level"/>
-        			</label>
-			</div>
-			<div>
-        			<label>
-          				Alignment:
-          				<input type="text" name="alignment"/>
-        			</label>
-			</div>
-      		</form>
-			<div>			
-				<p>Max Health:	</p>
-			</div>
-			<div>
-				<p>STR:	</p>
-			</div>
-			<div>
-				<p>DEX:	</p>
-			</div>
-			<div>
-				<p>CON:	</p>
-			</div>
-			<div>
-				<p>INT:	</p>
-			</div>
-			<div>
-				<p>WIS:	</p>
-			</div>
-			<div>
-				<p>CHA:	</p>
-			</div>
+			meleeEnhance: 0,
+			rangedEnhance: 0,
+			cmbEnhance: 0,
 
-			<p>Character Description:</p>
-			<textarea>
- 			
-			</textarea>
+			meleeMisc: 0,
+			rangedMisc: 0,
+			cmbMisc: 0,
 
-			<p>Backstory:</p>
-			<textarea>
- 			
-			</textarea>
-            </TabPanel>
+			improvedInit: true,
+			initMod: 0,
 
-            <TabPanel>
+			maxDex: 3,
+			armorPenalty: -3,
+			spellFailure: 25,
 
-			<div>
-        			<label>
-          				MAX HP:
-          				<input type="text" name="maxHP"/>
-        			</label>
-			</div>
-			<div>
-        			<label>
-          				HP:
-          				<input type="text" name="hp"/>
-        			</label>
-			</div>
-			<div>
-        			<label>
-          				AC:
-          				<input type="text" name="AC"/>
-        			</label>
-			</div>
-			<div>
-        			<label>
-          			Touch:
-          			<input type="text" name="Touch"/>
-        			</label>
-			</div>
+			moveSpeed: 20,
 
-			<div>
-				<p>STR:	</p>
-			</div>
-			<div>
-				<p>DEX:	</p>
-			</div>
-			<div>
-				<p>CON:	</p>
-			</div>
-			<div>
-				<p>INT:	</p>
-			</div>
-			<div>
-				<p>WIS:	</p>
-			</div>
-			<div>
-				<p>CHA:	</p>
-			</div>
+			skillRanks: {},
+			classSkills: {
+				'Acrobatics': true,
+				"Bluff": true,
+				"Sleight of Hand": true,
+			},
+			skillMisc: {},
 
-			<div>
-				<p>Fortitude:	</p>
-			</div>
-			<div>
-				<p>Reflect:	</p>
-			</div>
-			<div>
-				<p>Will:	</p>
-			</div>
+			lv0SpellSlots: 4,
+			lv1SpellSlots: 5,
+			lv2SpellSlots: 3,
+			lv3SpellSlots: 2,
+			lv4SpellSlots: 1,
+			lv5SpellSlots: 0,
+			lv6SpellSlots: 0,
+			lv7SpellSlots: 0,
+			lv8SpellSlots: 0,
+			lv9SpellSlots: 0,
 
+			isPreparedCaster: false,
 
-			<div>
-				<p>Available Spells:</p>
-				<p>Spells that are available</p>
-			</div>
+			platinum: 1,
+			gold: 25,
+			silver: 0,
+			copper: 300,
 
-			<div>
-				<p>Base Attack Bonus:	</p>
-			</div>
-			<div>
-				<p>Spell Ressistance:	</p>
-			</div>
-			<div>
-				<p>Flat Footed:	</p>
-			</div>
-			<div>
-				<p>CMD:	</p>
-			</div>
-			<div>
-				<p>Inititive:	</p>
-			</div>
+			cantrips: [],
+			availableCantrips: [],
 
-			<div>
-				<p>Abilities:</p>
-				<p>Abilities that are available</p>
-			</div>
+			spells: [],
+			availableSpells: [],
 
-            </TabPanel>
+			feats: [],
+			availableFeats: [],
 
-            <TabPanel>
-		<div>
-                	<button type="button">-</button>
-				Acrobatics:  
-                	<button type="button">+</button>
-		</div>
-		<div>
-                	<button type="button">-</button>
-				Appraise: 
-                	<button type="button">+</button>
-		</div>
-		<div>
-                	<button type="button">-</button>
-				Bluff: 
-                	<button type="button">+</button>
-		</div>
-		<div>
-                	<button type="button">-</button>
-				Climb: 
-                	<button type="button">+</button>
-		</div>
-		<div>
-                	<button type="button">-</button>
-				Craft: 
-                	<button type="button">+</button>
-		</div>
-		<div>
-                	<button type="button">-</button>
-				Profession: 
-                	<button type="button">+</button>
-		</div>
-		<div>
-                	<button type="button">-</button>
-				Local: 
-                	<button type="button">+</button>
-		</div>
-		<div>
-                	<button type="button">-</button>
-				Handle Animal: 
-                	<button type="button">+</button>
-		</div>
-		<div>
-                	<button type="button">-</button>
-				Heal: 
-                	<button type="button">+</button>
-		</div>
+			items: [],
+			availableItems: [],
 
-		<div>
-                	<button type="button">-</button>
-				Intimidate: 
-                	<button type="button">+</button>
-		</div>
-		<div>
-                	<button type="button">-</button>
-				Arcana: 
-                	<button type="button">+</button>
-		</div>
-		<div>
-                	<button type="button">-</button>
-				Local: 
-                	<button type="button">+</button>
-		</div>
-		<div>
-                	<button type="button">-</button>
-				Dungeoneering: 
-                	<button type="button">+</button>
-		</div>
-		<div>
-                	<button type="button">-</button>
-				Disguise: 
-                	<button type="button">+</button>
-		</div>
-		<div>
-                	<button type="button">-</button>
-				Sense Motive: 
-                	<button type="button">+</button>
-		</div>
-		<div>
-                	<button type="button">-</button>
-				Nobility: 
-                	<button type="button">+</button>
-		</div>
-		<div>
-                	<button type="button">-</button>
-				Planes: 
-                	<button type="button">+</button>
-		</div>
-		<div>
-                	<button type="button">-</button>
-				Religion: 
-                	<button type="button">+</button>
-		</div>
-		<div>
-                	<button type="button">-</button>
-				Linguistics: 
-                	<button type="button">+</button>
-		</div>
-		<div>
-                	<button type="button">-</button>
-				Perception: 
-                	<button type="button">+</button>
-		</div>
-		<div>
-                	<button type="button">-</button>
-				History: 
-                	<button type="button">+</button>
-		</div>
-		<div>
-                	<button type="button">-</button>
-				Fly: 
-                	<button type="button">+</button>
-		</div>
-		<div>
-                	<button type="button">-</button>
-				Spellcraft: 
-                	<button type="button">+</button>
-		</div>
-		<div>
-                	<button type="button">-</button>
-				Stealth: 
-                	<button type="button">+</button>
-		</div>
-		<div>
-                	<button type="button">-</button>
-				Survival: 
-                	<button type="button">+</button>
-		</div>
-		<div>
-                	<button type="button">-</button>
-				Swim: 
-                	<button type="button">+</button>
-		</div>
-		<div>
-                	<button type="button">-</button>
-				Use Magic Device: 
-                	<button type="button">+</button>
-		</div>
-		<div>
-                	<button type="button">-</button>
-				Ride: 
-                	<button type="button">+</button>
-		</div>
-		<div>
-                	<button type="button">-</button>
-				Nature: 
-                	<button type="button">+</button>
-		</div>
-		<div>
-                	<button type="button">-</button>
-				Diplomacy: 
-                	<button type="button">+</button>
-		</div>
-		<div>
-                	<button type="button">-</button>
-				Engineering: 
-                	<button type="button">+</button>
-		</div>
-		<div>
-                	<button type="button">-</button>
-				Preform: 
-                	<button type="button">+</button>
-		</div>
-		<div>
-                	<button type="button">-</button>
-				Disable Device: 
-                	<button type="button">+</button>
-		</div>
-		<div>
-                	<button type="button">-</button>
-				Geography: 
-                	<button type="button">+</button>
-		</div>
-		<div>
-                	<button type="button">-</button>
-				Escape Artist: 
-                 	<button type="button">+</button>
-		</div>
-		<div>
-                	<button type="button">-</button>
-				Slight of Hand: 
-                	<button type="button">+</button>
-		</div>
+			classLevels: [],
+			availableClassLevels: [],
+		};
+	}
+
+	changeAttribute(name, value) {
+		if(value > 0 && value <= 20) {
+			switch(name) {
+				case "Strength":
+					this.setState({strengthVal: value});
+					break;
+
+				case "Dexterity":
+					this.setState({dexVal: value});
+					break;
+
+				case "Constitution":
+					this.setState({conVal: value});
+					break;
+
+				case "Intelligence":
+						this.setState({intVal: value});
+					break;
+
+				case "Wisdom":
+						this.setState({wisdomVal: value});
+					break;
+
+				case "Charisma":
+						this.setState({charismaVal: value});
+					break;
+			}
+		}
+	}
+
+	changeSkill(name, value) {
+		if(value >= 0 && value <= this.state.charLevel) {
+			var newRanks = {...this.state.skillRanks, [name]: parseInt(value)};
+			console.log(newRanks); //TODO: remove after testing
+			this.setState({skillRanks: newRanks});
+		}
+	}
+
+	changeText(name, value) {
+		switch(name) {
+			case "Name":
+				this.setState({
+					charName: value
+				});
+				break;
+			case "Alignment":
+				this.setState({
+					charAlignment: value
+				});
+				break;
+			case "Description":
+				this.setState({
+					charDescription: value
+				});
+				break;
+			case "Backstory":
+				this.setState({
+					charBackstory: value
+				});
+				break;
+		}
+	}
+
+	changeHealth(value) {
+		this.setState({
+			currentHealth: value
+		});
+	}
+
+	addToList(name) {
+	}
+
+	removeFromList(name) {
+	}
+
+	updateMoney(value, type) {
+		switch(type) {
+			case 'p':
+				this.setState({
+					platinum: value
+				});
+				break;
+			case 'g':
+				this.setState({
+					gold: value
+				});
+				break;
+			case 's':
+				this.setState({
+					silver: value
+				});
+				break;
+			case 'c':
+				this.setState({
+					copper: value
+				});
+				break;
+		}
+	}
+
+	render() {
+		return (
+			<Tabs>
+				<TabList>
+					<Tab>Menu</Tab>
+					<Tab>Overview</Tab>
+					<Tab>Combat</Tab>
+					<Tab>Skills</Tab>
+					<Tab>Spells & Feats</Tab>
+					<Tab>Inventory</Tab>
+					<Tab>Levels</Tab>
+				</TabList>
+
+				<TabPanel>
+					<button type="button" onClick={() => {this.setState({account: true})}}>Account</button>
+					<button type="button" onClick={() => {this.setState({characters: true})}}>Characters</button>
+					{/*
+					<button type="button" onClick={() => {this.setState({settings: true})}}>Settings</button>
+					<button type="button" onClick={() => {this.setState({terms: true})}}>Terms of Service</button>
+					*/}
+					<button type="button" onClick={() => {this.setState({help: true})}}>Help</button>
+
+					<ReactModal isOpen={this.state.account}>
+						<button type="button" onClick={() => {this.setState({account: true})}}>X</button>
+						<div>
+							<label>
+								<p>
+									Username:
+									<input type="text" name="name"/>
+								</p>
+							</label>
+					
+							<label>
+								<p>
+									Password:
+									<input type="text" name="pass"/>
+								</p>
+							</label>
+							<button type="button">ENTER</button>
+						</div>
+					</ReactModal>
+					<ReactModal isOpen={this.state.characters}>
+						<button type="button" onClick={() => {this.setState({characters: false})}}>X</button>
+						<p>List of characters, and the ability to pick or delete one</p>
+						<button type="button">+</button>
+					</ReactModal>
+					<ReactModal isOpen={this.state.settings}>
+						<button type="button" onClick={() => {this.setState({settings: false})}}>X</button>
+						<p>No settings</p>
+					</ReactModal>
+					<ReactModal isOpen={this.state.terms}>
+						<button type="button" onClick={() => {this.setState({terms: false})}}>X</button>
+						<p>TBD</p>
+					</ReactModal>
+					<ReactModal isOpen={this.state.help}>
+						<button type="button" onClick={() => {this.setState({help: false})}}>X</button>
+						<p>an overview of every tab and what it does as well as contact information at the end in the form of our emails</p>
+					</ReactModal>
+				</TabPanel>
+
+				<TabPanel>
+					<OverviewTab
+						name={this.state.charName}
+						race={this.state.charRace}
+						level={this.state.charLevel}
+						alignment={this.state.charAlignment}
+
+						currentHealth={this.state.currentHealth}
+						maxHealth={this.state.maxHealth}
+
+						strengthVal={this.state.strengthVal}
+						strengthBase={this.state.strengthBase}
+						strengthInherent={this.state.strengthInherent}
+						strengthEnhance={this.state.strengthEnhance}
+						strengthMisc={this.state.strengthMisc}
+
+						dexVal={this.state.dexVal}
+						dexBase={this.state.dexBase}
+						dexInherent={this.state.dexInherent}
+						dexEnhance={this.state.dexEnhance}
+						dexMisc={this.state.dexMisc}
+			
+						conVal={this.state.conVal}
+						conBase={this.state.conBase}
+						conInherent={this.state.conInherent}
+						conEnhance={this.state.conEnhance}
+						conMisc={this.state.conMisc}
+
+						intVal={this.state.intVal}
+						intBase={this.state.intBase}
+						intInherent={this.state.intInherent}
+						intEnhance={this.state.intEnhance}
+						intMisc={this.state.intMisc}
+
+						wisdomVal={this.state.wisdomVal}
+						wisdomBase={this.state.wisdomBase}
+						wisdomInherent={this.state.wisdomInherent}
+						wisdomEnhance={this.state.wisdomEnhance}
+						wisdomMisc={this.state.wisdomMisc}
+
+						charismaVal={this.state.charismaVal}
+						charismaBase={this.state.charismaBase}
+						charismaInherent={this.state.charismaInherent}
+						charismaEnhance={this.state.charismaEnhance}
+						charismaMisc={this.state.charismaMisc}
+
+						description={this.state.charDescription}
+						backstory={this.state.charBackstory}
+
+						updateAttr={this.changeAttribute}
+						chText={this.changeText}
+						chHealth={this.changeHealth}
+					/>
+				</TabPanel>
+
+				<TabPanel>
+					<CombatTab
+						currentHealth={this.state.currentHealth}
+						maxHealth={this.state.maxHealth}
+
+						armorAc={this.state.armorAc}
+						shieldAc={this.state.shieldAc}
+						deflectAc={this.state.deflectAc}
+						naturalAc={this.state.naturalAc}
+						dodgeAc={this.state.dodgeAc}
+						sizeAc={this.state.sizeAc}
+						miscAc={this.state.miscAc}
+
+						sr={this.state.sr}
+						bab={this.state.bab}
+						maxDex={this.state.maxDex}
+
+						improvedInit={this.state.improvedInit}
+						initMod={this.state.initMod}
+						moveSpeed={this.state.moveSpeed}
+
+						classFortSave={this.state.classFortSave}
+						classReflexSave={this.state.classReflexSave}
+						classWillSave={this.state.classWillSave}
+
+						fortEnhance={this.state.fortEnhance}
+						reflexEnhance={this.state.reflexEnhance}
+						willEnhance={this.state.willEnhance}
+
+						fortMisc={this.state.fortMisc}
+						reflexMisc={this.state.reflexMisc}
+						willMisc={this.state.willMisc}
+
+						meleeEnhance={this.state.meleeEnhance}
+						rangedEnhance={this.state.rangedEnhance}
+						cmbEnhance={this.state.cmbEnhance}
+			
+						meleeMisc={this.state.meleeMisc}
+						rangedMisc={this.state.rangedMisc}
+						cmbMisc={this.state.cmbMisc}
+
+						strengthVal={this.state.strengthVal}
+						strengthBase={this.state.strengthBase}
+						strengthInherent={this.state.strengthInherent}
+						strengthEnhance={this.state.strengthEnhance}
+						strengthMisc={this.state.strengthMisc}
+
+						dexVal={this.state.dexVal}
+						dexBase={this.state.dexBase}
+						dexInherent={this.state.dexInherent}
+						dexEnhance={this.state.dexEnhance}
+						dexMisc={this.state.dexMisc}
+			
+						conVal={this.state.conVal}
+						conBase={this.state.conBase}
+						conInherent={this.state.conInherent}
+						conEnhance={this.state.conEnhance}
+						conMisc={this.state.conMisc}
+
+						intVal={this.state.intVal}
+						intBase={this.state.intBase}
+						intInherent={this.state.intInherent}
+						intEnhance={this.state.intEnhance}
+						intMisc={this.state.intMisc}
+
+						wisdomVal={this.state.wisdomVal}
+						wisdomBase={this.state.wisdomBase}
+						wisdomInherent={this.state.wisdomInherent}
+						wisdomEnhance={this.state.wisdomEnhance}
+						wisdomMisc={this.state.wisdomMisc}
+
+						charismaVal={this.state.charismaVal}
+						charismaBase={this.state.charismaBase}
+						charismaInherent={this.state.charismaInherent}
+						charismaEnhance={this.state.charismaEnhance}
+						charismaMisc={this.state.charismaMisc}
+
+						chHealth={this.changeHealth}
+						updateAttr={this.changeAttribute}
+					/>
+				</TabPanel>
+
+				<TabPanel>
+					<SkillsTab
+						skillRanks={this.state.skillRanks}
+						classSkills={this.state.classSkills}
+						skillMisc={this.state.skillMisc}
+
+						armorPenalty={this.state.armorPenalty}
+
+						strengthVal={this.state.strengthVal}
+						dexVal={this.state.dexVal}
+						conVal={this.state.conVal}
+						intVal={this.state.intVal}
+						wisdomVal={this.state.wisdomVal}
+						charismaVal={this.state.charismaVal}
+
+						level={this.state.charLevel}
+						updateSkill={this.changeSkill}
+					/>
+				</TabPanel>
+
+				<TabPanel>
+					<SpellsTab
+						lv0Slots={this.state.lv0SpellSlots}
+						lv1Slots={this.state.lv1SpellSlots}
+						lv2Slots={this.state.lv2SpellSlots}
+						lv3Slots={this.state.lv3SpellSlots}
+						lv4Slots={this.state.lv4SpellSlots}
+						lv5Slots={this.state.lv5SpellSlots}
+						lv6Slots={this.state.lv6SpellSlots}
+						lv7Slots={this.state.lv7SpellSlots}
+						lv8Slots={this.state.lv8SpellSlots}
+						lv9Slots={this.state.lv9SpellSlots}
+						
+						charCantrips={this.state.cantrips}
+						availableCantrips={this.state.availableCantrips}
+						
+						charSpells={this.state.spells}
+						availableSpells={this.state.availableSpells}
+						
+						charFeats={this.state.feats}
+						availableFeats={this.state.availableFeats}
+
+						addToList={this.addToList}
+						removeFromList={this.removeFromList}
+					/>
+				</TabPanel>
+
+				<TabPanel>
+					<InventoryTab
+						platinum={this.state.platinum}
+						gold={this.state.gold}
+						silver={this.state.silver}
+						copper={this.state.copper}
+						
+						updateMoney={this.updateMoney}
+						
+						charItems={this.state.items}
+						availableItems={this.state.availableItems}
+
+						addToList={this.addToList}
+						removeFromList={this.removeFromList}
+					/>
+				</TabPanel>
+
+				<TabPanel>
+					<LevelsTab
+						charClassLevels={this.state.classLevels}
+						availableClassLevels={this.state.availableClassLevels}
+						
+						addToList={this.addToList}
+						removeFromList={this.removeFromList}
+					/>
+				</TabPanel>
+			</Tabs>
+		);
+	}
+}
+
+		/* TODO: Finish resolving merge conflict, put modal into tabs
 		<div>
 			<p>Languages: <button type="button" onClick={() => setLanguages(true)}>Edit</button></p>
 			<p>Languages that are avilable</p>
@@ -445,8 +570,8 @@ const [levels, setLevels]=useState(false)
 			<p>Allows you to delete a current item or add a new one</p>
 		 	<button type="button">+</button>
 		</ReactModal>
-            </TabPanel>
-            <TabPanel>
+			</TabPanel>
+			<TabPanel>
 		<div>
 			<p>Cantrips: <button type="button" onClick={() => setCantrips(true)}>Edit</button></p>
 			<p>Cantrips that are avilable</p>
@@ -514,30 +639,30 @@ const [levels, setLevels]=useState(false)
 			<p>Allows you to delete a current item or add a new one</p>
 		 	<button type="button">+</button>
 		</ReactModal>
-            </TabPanel>
+			</TabPanel>
 
-            <TabPanel>
-                <h3>Currency</h3>
+			<TabPanel>
+				<h3>Currency</h3>
 		<div>
-          		Platinum:
-          		<input type="number" name="platinum"/>
+		  		Platinum:
+		  		<input type="number" name="platinum"/>
 		</div>
 		<div>
-          		Gold:
-          		<input type="number" name="gold"/>
+		  		Gold:
+		  		<input type="number" name="gold"/>
 		</div>
 		<div>
-          		Silver:
-          		<input type="number" name="silver"/>
+		  		Silver:
+		  		<input type="number" name="silver"/>
 		</div>
 		<div>
-          		Copper:
-          		<input type="number" name="copper"/>
+		  		Copper:
+		  		<input type="number" name="copper"/>
 		</div>
 		<div>
 			<p>Equipment</p>
 			<p>Equipment that is available</p>
-                	<button type="button" onClick={() => setEquipment(true)}>Edit</button>
+					<button type="button" onClick={() => setEquipment(true)}>Edit</button>
 		</div>
 		<ReactModal isOpen={equipment}>
 		 	<button type="button" onClick={() => setEquipment(false)}>X</button>
@@ -547,26 +672,25 @@ const [levels, setLevels]=useState(false)
 		<div>
 			<p>Inventory</p>
 			<p>Inventory that is available</p>
-                	<button type="button" onClick={() => setBags(true)}>Edit</button>
+					<button type="button" onClick={() => setBags(true)}>Edit</button>
 		</div>
 		<ReactModal isOpen={bags}>
 		 	<button type="button" onClick={() => setBags(false)}>X</button>
 			<p>Allows you to delete a current item or add a new one</p>
 		 	<button type="button">+</button>
 		</ReactModal>
-            </TabPanel>
+			</TabPanel>
 
-            <TabPanel>
-                <button type="button" onClick={() => setLevels(true)}>Change</button>
+			<TabPanel>
+				<button type="button" onClick={() => setLevels(true)}>Change</button>
 		<p>Classes and levels</p>
 		<ReactModal isOpen={levels}>
 		 	<button type="button" onClick={() => setLevels(false)}>X</button>
 			<p>Allows you to edit or delete a current item or add a new one</p>
 		 	<button type="button">+</button>
 		</ReactModal>
-            </TabPanel>
-        </Tabs>
-    );
+			</TabPanel>
+		</Tabs>
+	);
 }
-
-export default App;
+*/
