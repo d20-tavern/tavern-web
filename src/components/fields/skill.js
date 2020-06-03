@@ -11,16 +11,24 @@ export default class SkillField extends React.Component {
 		var armorPenalty = 0;
 		if(this.props.armorPenalty) armorPenalty = this.props.armorPenalty;
 
+		var ranks = (this.props.allRanks[this.props.name] === undefined) ? 0 : this.props.allRanks[this.props.name];
 		return (
 			<>
-				<button type="button">-</button>
-				<button type="button">+</button>
 				<label>{this.props.name}: {
 					attrMod +
-					this.props.ranks +
+					ranks +
 					((this.props.isClassSkill && this.props.ranks > 0) ? 3 : 0) +
 					+ armorPenalty
-				}</label>
+				}<br/>
+				
+				Ranks: <input
+					type="number"
+					min={0}
+					max={this.props.level}
+					defaultValue={ranks}
+					onChange={e => {this.props.update(this.props.name, e.target.value)}}
+				/>
+			</label>
 			</>
 		);
 	}
