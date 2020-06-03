@@ -6,6 +6,9 @@ import 'react-tabs/style/react-tabs.css';
 import OverviewTab from './components/tabs/overview.js'
 import CombatTab from './components/tabs/combat.js'
 import SkillsTab from './components/tabs/skills.js'
+import SpellsTab from './components/tabs/spells.js'
+import InventoryTab from './components/tabs/inventory.js'
+import LevelsTab from './components/tabs/levels.js'
 
 export default class App extends React.Component {
 	constructor(props) {
@@ -16,6 +19,10 @@ export default class App extends React.Component {
 		this.changeSkill = this.changeSkill.bind(this);
 		this.changeText = this.changeText.bind(this);
 		this.changeHealth = this.changeHealth.bind(this);
+		this.updateMoney = this.updateMoney.bind(this);
+
+		this.addToList = this.addToList.bind(this);
+		this.removeFromList = this.removeFromList.bind(this);
 
 		/*TODO: ALL of this is placeholder info, just to check math and logic.
 		 * Every single value here will need to be replaced with data nabbed from the server.
@@ -48,8 +55,8 @@ export default class App extends React.Component {
 			wisdomVal: 8,
 			charismaVal: 10,
 
-			strengthBase: 0,
-			dexBase: 0,
+			strengthBase: 2,
+			dexBase: 1,
 			conBase: 0,
 			intBase: 0,
 			wisdomBase: 0,
@@ -117,10 +124,19 @@ export default class App extends React.Component {
 
 			moveSpeed: 20,
 
-			lv1SpellSlots: 0,
-			lv2SpellSlots: 0,
-			lv3SpellSlots: 0,
-			lv4SpellSlots: 0,
+			skillRanks: {},
+			classSkills: {
+				'Acrobatics': true,
+				"Bluff": true,
+				"Sleight of Hand": true,
+			},
+			skillMisc: {},
+
+			lv0SpellSlots: 4,
+			lv1SpellSlots: 5,
+			lv2SpellSlots: 3,
+			lv3SpellSlots: 2,
+			lv4SpellSlots: 1,
 			lv5SpellSlots: 0,
 			lv6SpellSlots: 0,
 			lv7SpellSlots: 0,
@@ -129,12 +145,25 @@ export default class App extends React.Component {
 
 			isPreparedCaster: false,
 
-			/*
-			spells: Spell[],
-			feats: Feat[],
-			items: Item[],
-			*/
+			platinum: 1,
+			gold: 25,
+			silver: 0,
+			copper: 300,
 
+			cantrips: [],
+			availableCantrips: [],
+
+			spells: [],
+			availableSpells: [],
+
+			feats: [],
+			availableFeats: [],
+
+			items: [],
+			availableItems: [],
+
+			classLevels: [],
+			availableClassLevels: [],
 		};
 	}
 
@@ -169,6 +198,11 @@ export default class App extends React.Component {
 	}
 
 	changeSkill(name, value) {
+		if(value >= 0 && value <= this.state.charLevel) {
+			var newRanks = {...this.state.skillRanks, [name]: parseInt(value)};
+			console.log(newRanks); //TODO: remove after testing
+			this.setState({skillRanks: newRanks});
+		}
 	}
 
 	changeText(name, value) {
@@ -202,6 +236,37 @@ export default class App extends React.Component {
 		});
 	}
 
+	addToList(name) {
+	}
+
+	removeFromList(name) {
+	}
+
+	updateMoney(value, type) {
+		switch(type) {
+			case 'p':
+				this.setState({
+					platinum: value
+				});
+				break;
+			case 'g':
+				this.setState({
+					gold: value
+				});
+				break;
+			case 's':
+				this.setState({
+					silver: value
+				});
+				break;
+			case 'c':
+				this.setState({
+					copper: value
+				});
+				break;
+		}
+	}
+
 	render() {
 		return (
 			<Tabs>
@@ -210,7 +275,7 @@ export default class App extends React.Component {
 					<Tab>Overview</Tab>
 					<Tab>Combat</Tab>
 					<Tab>Skills</Tab>
-					<Tab>Spells</Tab>
+					<Tab>Spells & Feats</Tab>
 					<Tab>Inventory</Tab>
 					<Tab>Levels</Tab>
 				</TabList>
@@ -401,6 +466,10 @@ export default class App extends React.Component {
 
 				<TabPanel>
 					<SkillsTab
+						skillRanks={this.state.skillRanks}
+						classSkills={this.state.classSkills}
+						skillMisc={this.state.skillMisc}
+
 						armorPenalty={this.state.armorPenalty}
 
 						strengthVal={this.state.strengthVal}
@@ -409,94 +478,64 @@ export default class App extends React.Component {
 						intVal={this.state.intVal}
 						wisdomVal={this.state.wisdomVal}
 						charismaVal={this.state.charismaVal}
+
+						level={this.state.charLevel}
+						updateSkill={this.changeSkill}
 					/>
 				</TabPanel>
 
 				<TabPanel>
-			<div>
-				<p>Cantrips:</p>
-				<p>Cantrips that are avilable</p>
-			</div>
-			<div>
-				<p>Prepared Spells:</p>
-				<p>Prepared Spells that are avilable</p>
-			</div>
-			<div>
-				<p>Active Spell Effects Abilities:</p>
-				<p>Active Spell Effects that are avilable</p>
-			</div>
-			<h2>Spell Slots</h2>
-			<div>
-				Level	Max	Current
-			</div>
-			<div>
-				Level 1:
-			</div>
-			<div>
-				Level 2:
-			</div>
-			<div>
-				Level 3:
-			</div>
-			<div>
-				Level 4:
-			</div>
-			<div>
-				Level 5:
-			</div>
-			<div>
-				Level 6:
-			</div>
-			<div>
-				Level 7:
-			</div>
-			<div>
-				Level 8:
-			</div>
-			<div>
-				Level 9:
-			</div>
-			<div>
-				<p>Known Spells:</p>
-				<p>Known Spells that are available</p>
-			</div>
+					<SpellsTab
+						lv0Slots={this.state.lv0SpellSlots}
+						lv1Slots={this.state.lv1SpellSlots}
+						lv2Slots={this.state.lv2SpellSlots}
+						lv3Slots={this.state.lv3SpellSlots}
+						lv4Slots={this.state.lv4SpellSlots}
+						lv5Slots={this.state.lv5SpellSlots}
+						lv6Slots={this.state.lv6SpellSlots}
+						lv7Slots={this.state.lv7SpellSlots}
+						lv8Slots={this.state.lv8SpellSlots}
+						lv9Slots={this.state.lv9SpellSlots}
+						
+						charCantrips={this.state.cantrips}
+						availableCantrips={this.state.availableCantrips}
+						
+						charSpells={this.state.spells}
+						availableSpells={this.state.availableSpells}
+						
+						charFeats={this.state.feats}
+						availableFeats={this.state.availableFeats}
+
+						addToList={this.addToList}
+						removeFromList={this.removeFromList}
+					/>
 				</TabPanel>
 
 				<TabPanel>
-					<h3>Currency</h3>
-			<div>
-					Platinum:
-					<input type="number" name="platinum"/>
-			</div>
-			<div>
-					Gold:
-					<input type="number" name="gold"/>
-			</div>
-			<div>
-					Silver:
-					<input type="number" name="silver"/>
-			</div>
-			<div>
-					Copper:
-					<input type="number" name="copper"/>
-			</div>
-			<div>
-						<button type="button">-</button>
-						<button type="button">+</button>
-					<p>Equipment</p>
-					<p>Equipment that is available</p>
-			</div>
-			<div>
-						<button type="button">-</button>
-						<button type="button">+</button>
-					<p>Bags</p>
-					<p>Bags that are available</p>
-			</div>
+					<InventoryTab
+						platinum={this.state.platinum}
+						gold={this.state.gold}
+						silver={this.state.silver}
+						copper={this.state.copper}
+						
+						updateMoney={this.updateMoney}
+						
+						charItems={this.state.items}
+						availableItems={this.state.availableItems}
+
+						addToList={this.addToList}
+						removeFromList={this.removeFromList}
+					/>
 				</TabPanel>
 
 				<TabPanel>
-					<button type="button">Change</button>
-				<p>Classes and levels</p>
+					<LevelsTab
+						charClassLevels={this.state.classLevels}
+						availableClassLevels={this.state.availableClassLevels}
+						
+						addToList={this.addToList}
+						removeFromList={this.removeFromList}
+					/>
 				</TabPanel>
 			</Tabs>
 		);
