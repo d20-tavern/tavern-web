@@ -8,7 +8,6 @@ export default class SpellsTab extends React.Component {
 			<div>
 				<label>Spell Slots</label>
 				<ul>
-					<li>Level 0 Spell Slots: {this.props.lv0Slots}</li>
 					<li>Level 1 Spell Slots: {this.props.lv1Slots}</li>
 					<li>Level 2 Spell Slots: {this.props.lv2Slots}</li>
 					<li>Level 3 Spell Slots: {this.props.lv3Slots}</li>
@@ -26,6 +25,7 @@ export default class SpellsTab extends React.Component {
 					availableItems={this.props.availableCantrips}
 					addItems={this.props.addToList}
 					removeItems={this.props.removeFromList}
+					addAvailableItems={this.props.addToAvailableList}
 				/>
 
 				<br/>
