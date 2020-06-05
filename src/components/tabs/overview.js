@@ -14,8 +14,14 @@ export default class OverviewTab extends React.Component {
 						value={this.props.name}
 						ch={this.props.chText}
 					/><br/>
-					<label>Race: {this.props.race}</label><br/>
+					<TextField
+						name="Race"
+						value={this.props.race}
+						ch={this.props.chText}
+					/><br/>
+					{/*
 					<label>Level: {this.props.level}</label><br/>
+					*/}
 					<TextField
 						name="Alignment"
 						value={this.props.alignment}
@@ -27,10 +33,9 @@ export default class OverviewTab extends React.Component {
 
 				<div>
 					<HealthField
-						name="HP"
-						value={this.props.currentHealth}
-						maxValue={this.props.maxHealth}
-						ch={this.props.chHealth}
+						name="Max HP"
+						value={this.props.maxHealth}
+						ch={this.props.chMaxHealth}
 					/><br/>
 				</div>
 	

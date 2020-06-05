@@ -6,8 +6,9 @@ export default class SkillsTab extends React.Component {
 	render() {
 		return (
 			<>
+				{/*
 				<label> Max ranks: {this.props.level}</label><br/>
-
+				*/}
 				<SkillField
 					name="Acrobatics"
 					attr={this.props.dexVal}

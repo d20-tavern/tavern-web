@@ -19,10 +19,12 @@ export default class App extends React.Component {
 		this.changeSkill = this.changeSkill.bind(this);
 		this.changeText = this.changeText.bind(this);
 		this.changeHealth = this.changeHealth.bind(this);
+		this.changeMaxHealth = this.changeMaxHealth.bind(this);
 		this.updateMoney = this.updateMoney.bind(this);
 
 		this.addToList = this.addToList.bind(this);
 		this.removeFromList = this.removeFromList.bind(this);
+		this.addToAvailableList = this.addToAvailableList.bind(this);
 
 		/*TODO: ALL of this is placeholder info, just to check math and logic.
 		 * Every single value here will need to be replaced with data nabbed from the server.
@@ -36,27 +38,27 @@ export default class App extends React.Component {
 			help: false,
 
 
-			charName: "John Doe",
-			charRace: "Human",
-			charLevel: 1,
+			charName: "",
+			charRace: "",
+			charLevel: 99,
 			charAlignment: "True Neutral",
 			charGender: "Male",
 
-			charDescription: "Very generic.",
-			charBackstory: "Not much to speak of.",
+			charDescription: "",
+			charBackstory: "",
 
-			currentHealth: 50,
-			maxHealth: 50,
+			currentHealth: 0,
+			maxHealth: 0,
 
-			strengthVal: 16,
-			dexVal: 12,
-			conVal: 12,
+			strengthVal: 10,
+			dexVal: 10,
+			conVal: 10,
 			intVal: 10,
-			wisdomVal: 8,
+			wisdomVal: 10,
 			charismaVal: 10,
 
-			strengthBase: 2,
-			dexBase: 1,
+			strengthBase: 0,
+			dexBase: 0,
 			conBase: 0,
 			intBase: 0,
 			wisdomBase: 0,
@@ -83,11 +85,11 @@ export default class App extends React.Component {
 			wisdomMisc: 0,
 			charismaMisc: 0,
 
-			armorAc: 5,
-			shieldAc: 3,
+			armorAc: 0,
+			shieldAc: 0,
 			sizeAc: 0,
-			dodgeAc: -1,
-			deflectAc: 1,
+			dodgeAc: 0,
+			deflectAc: 0,
 			naturalAc: 0,
 			miscAc: 0,
 
@@ -118,11 +120,11 @@ export default class App extends React.Component {
 			improvedInit: true,
 			initMod: 0,
 
-			maxDex: 3,
-			armorPenalty: -3,
-			spellFailure: 25,
+			maxDex: 5,
+			armorPenalty: 0,
+			spellFailure: 0,
 
-			moveSpeed: 20,
+			moveSpeed: 30,
 
 			skillRanks: {},
 			classSkills: {
@@ -132,11 +134,11 @@ export default class App extends React.Component {
 			},
 			skillMisc: {},
 
-			lv0SpellSlots: 4,
-			lv1SpellSlots: 5,
-			lv2SpellSlots: 3,
-			lv3SpellSlots: 2,
-			lv4SpellSlots: 1,
+
+			lv1SpellSlots: 0,
+			lv2SpellSlots: 0,
+			lv3SpellSlots: 0,
+			lv4SpellSlots: 0,
 			lv5SpellSlots: 0,
 			lv6SpellSlots: 0,
 			lv7SpellSlots: 0,
@@ -145,25 +147,25 @@ export default class App extends React.Component {
 
 			isPreparedCaster: false,
 
-			platinum: 1,
-			gold: 25,
+			platinum: 0,
+			gold: 0,
 			silver: 0,
-			copper: 300,
+			copper: 0,
 
 			cantrips: [],
-			availableCantrips: [],
+			availableCantrips: ['firebolt', 'prestigitation', 'ray of frost'],
 
 			spells: [],
-			availableSpells: [],
+			availableSpells: ['shield', 'charm person', 'thunderwave'],
 
 			feats: [],
-			availableFeats: [],
+			availableFeats: ['fleet', 'great weapon master', 'warcaster'],
 
 			items: [],
-			availableItems: [],
+			availableItems: ['shortsword', 'staff', 'bag of holding'],
 
 			classLevels: [],
-			availableClassLevels: [],
+			availableClassLevels: ['fighter', 'sorcerer', 'monk', 'ranger', 'rogue'],
 		};
 	}
 
@@ -232,6 +234,12 @@ export default class App extends React.Component {
 	changeHealth(value) {
 		this.setState({
 			currentHealth: value
+		});
+	}
+
+	changeMaxHealth(value) {
+		this.setState({
+			maxHealth: value
 		});
 	}
 
@@ -461,6 +469,108 @@ export default class App extends React.Component {
 		}
 	}
 
+	addToAvailableList(name, listBox) {
+		if(name === "") {
+		return;
+		}
+		var selection = [];
+		var options = listBox.options;
+
+		if(!options) {
+			return;
+		}
+
+		for(var i = 0; i < options.length; i++) {
+			if(options[i].selected) {
+				selection.push(options[i].value);
+			}
+		}
+
+		//so far, everything is the same. Now, we diverge
+		//and change state based on name
+		switch(name) {
+			case "Cantrips":
+				var newCantrips = this.state.cantrips;
+				for(var i = 0; i < selection.length; i++) {
+					for(var j = 0; j < newCantrips.length; j++) {
+						if(selection[i] === newCantrips[j]) {
+							newCantrips[j].quantity += 1;
+							break;
+						}
+					}
+				}
+
+				this.setState({
+					availableCantrips: newCantrips
+				});
+				break;
+
+			case "Spells":
+				var newSpells = this.state.spells;
+				for(var i = 0; i < selection.length; i++) {
+					for(var j = 0; j < newSpells.length; j++) {
+						if(selection[i] === newSpells[j]) {
+							newSpells[j].quantity += 1;
+							break;
+						}
+					}
+				}
+
+				this.setState({
+					availableSpells: newSpells
+				});
+				break;
+
+			case "Feats":
+				var newFeats = this.state.feats;
+				for(var i = 0; i < selection.length; i++) {
+					for(var j = 0; j < newFeats.length; j++) {
+						if(selection[i] === newFeats[j]) {
+							newFeats[j].quantity += 1;
+							break;
+						}
+					}
+				}
+
+				this.setState({
+					availableFeats: newFeats
+				});
+				break;
+
+			case "Items":
+				var newItems = this.state.items;
+				for(var i = 0; i < selection.length; i++) {
+					for(var j = 0; j < newItems.length; j++) {
+						if(selection[i] === newItems[j]) {
+							newItems[j].quantity += 1;
+							break;
+						}
+					}
+				}
+
+				this.setState({
+					availableItems: newItems
+				});
+				break;
+
+			case "Class Levels":
+				var newClassLevels = this.state.classLevels;
+				for(var i = 0; i < selection.length; i++) {
+					for(var j = 0; j < newClassLevels.length; j++) {
+						if(selection[i] === newClassLevels[j]) {
+							newClassLevels[j].quantity += 1;
+							break;
+						}
+					}
+				}
+
+				this.setState({
+					availableClassLevels: newClassLevels
+				});
+				break;
+		}
+	}
+
 	updateMoney(value, type) {
 		switch(type) {
 			case 'p':
@@ -505,8 +615,8 @@ export default class App extends React.Component {
 					{/*
 					<button type="button" onClick={() => {this.setState({settings: true})}}>Settings</button>
 					<button type="button" onClick={() => {this.setState({terms: true})}}>Terms of Service</button>
-					*/}
 					<button type="button" onClick={() => {this.setState({help: true})}}>Help</button>
+					*/}
 
 					<ReactModal isOpen={this.state.account}>
 						<button type="button" onClick={() => {this.setState({account: true})}}>X</button>
@@ -598,6 +708,7 @@ export default class App extends React.Component {
 						updateAttr={this.changeAttribute}
 						chText={this.changeText}
 						chHealth={this.changeHealth}
+						chMaxHealth={this.changeMaxHealth}
 					/>
 				</TabPanel>
 
@@ -705,7 +816,7 @@ export default class App extends React.Component {
 
 				<TabPanel>
 					<SpellsTab
-						lv0Slots={this.state.lv0SpellSlots}
+
 						lv1Slots={this.state.lv1SpellSlots}
 						lv2Slots={this.state.lv2SpellSlots}
 						lv3Slots={this.state.lv3SpellSlots}
@@ -716,6 +827,11 @@ export default class App extends React.Component {
 						lv8Slots={this.state.lv8SpellSlots}
 						lv9Slots={this.state.lv9SpellSlots}
 						
+
+
+
+
+
 						charCantrips={this.state.cantrips}
 						availableCantrips={this.state.availableCantrips}
 						
@@ -727,6 +843,7 @@ export default class App extends React.Component {
 
 						addToList={this.addToList}
 						removeFromList={this.removeFromList}
+						addToAvailableList={this.addToAvailableList}
 					/>
 				</TabPanel>
 
@@ -744,6 +861,7 @@ export default class App extends React.Component {
 
 						addToList={this.addToList}
 						removeFromList={this.removeFromList}
+						addToAvailableList={this.addToAvailableList}
 					/>
 				</TabPanel>
 
@@ -754,6 +872,9 @@ export default class App extends React.Component {
 						
 						addToList={this.addToList}
 						removeFromList={this.removeFromList}
+						addToAvailableList={this.addToAvailableList}
+
+						chText={this.changeText}
 					/>
 				</TabPanel>
 			</Tabs>
@@ -761,155 +882,3 @@ export default class App extends React.Component {
 	}
 }
 
-		/* TODO: Finish resolving merge conflict, put modal into tabs
-		<div>
-			<p>Languages: <button type="button" onClick={() => setLanguages(true)}>Edit</button></p>
-			<p>Languages that are avilable</p>
-		</div>
-		<ReactModal isOpen={languages}>
-		 	<button type="button" onClick={() => setLanguages(false)}>X</button>
-			<p>Allows you to delete a current item or add a new one</p>
-		 	<button type="button">+</button>
-		</ReactModal>
-		<div>
-			<p>Feats: <button type="button" onClick={() => setFeats(true)}>Edit</button></p>
-			<p>Feats that are avilable</p>
-		</div>
-		<ReactModal isOpen={feats}>
-		 	<button type="button" onClick={() => setFeats(false)}>X</button>
-			<p>Allows you to delete a current item or add a new one</p>
-		 	<button type="button">+</button>
-		</ReactModal>
-		<div>
-			<p>Special Abilities: <button type="button" onClick={() => setAbilities(true)}>Edit</button></p>
-			<p>Special Abilities that are avilable</p>
-		</div>
-		<ReactModal isOpen={abilities}>
-		 	<button type="button" onClick={() => setAbilities(false)}>X</button>
-			<p>Allows you to delete a current item or add a new one</p>
-		 	<button type="button">+</button>
-		</ReactModal>
-			</TabPanel>
-			<TabPanel>
-		<div>
-			<p>Cantrips: <button type="button" onClick={() => setCantrips(true)}>Edit</button></p>
-			<p>Cantrips that are avilable</p>
-		</div>
-		<ReactModal isOpen={cantrips}>
-		 	<button type="button" onClick={() => setCantrips(false)}>X</button>
-			<p>Allows you to delete a current item or add a new one</p>
-		 	<button type="button">+</button>
-		</ReactModal>
-		<div>
-			<p>Prepared Spells: <button type="button" onClick={() => setPrepared(true)}>Edit</button></p>
-			<p>Prepared Spells that are avilable</p>
-		</div>
-		<ReactModal isOpen={prepared}>
-		 	<button type="button" onClick={() => setPrepared(false)}>X</button>
-			<p>Allows you to delete a current item or add a new one</p>
-		 	<button type="button">+</button>
-		</ReactModal>
-		<div>
-			<p>Active Spell Effects Abilities: <button type="button" onClick={() => setActive(true)}>Edit</button></p>
-			<p>Active Spell Effects that are avilable</p>
-		</div>
-		<ReactModal isOpen={active}>
-		 	<button type="button" onClick={() => setActive(false)}>X</button>
-			<p>Allows you to delete a current item or add a new one</p>
-		 	<button type="button">+</button>
-		</ReactModal>
-		<h2>Spell Slots</h2>
-		<div>
-			Level	Max	Current
-		</div>
-		<div>
-			Level 1:
-		</div>
-		<div>
-			Level 2:
-		</div>
-		<div>
-			Level 3:
-		</div>
-		<div>
-			Level 4:
-		</div>
-		<div>
-			Level 5:
-		</div>
-		<div>
-			Level 6:
-		</div>
-		<div>
-			Level 7:
-		</div>
-		<div>
-			Level 8:
-		</div>
-		<div>
-			Level 9:
-		</div>
-		<div>
-			<p>Known Spells: <button type="button" onClick={() => setKnown(true)}>Edit</button></p>
-			<p>Known Spells that are available</p>
-		</div>
-		<ReactModal isOpen={known}>
-		 	<button type="button" onClick={() => setKnown(false)}>X</button>
-			<p>Allows you to delete a current item or add a new one</p>
-		 	<button type="button">+</button>
-		</ReactModal>
-			</TabPanel>
-
-			<TabPanel>
-				<h3>Currency</h3>
-		<div>
-		  		Platinum:
-		  		<input type="number" name="platinum"/>
-		</div>
-		<div>
-		  		Gold:
-		  		<input type="number" name="gold"/>
-		</div>
-		<div>
-		  		Silver:
-		  		<input type="number" name="silver"/>
-		</div>
-		<div>
-		  		Copper:
-		  		<input type="number" name="copper"/>
-		</div>
-		<div>
-			<p>Equipment</p>
-			<p>Equipment that is available</p>
-					<button type="button" onClick={() => setEquipment(true)}>Edit</button>
-		</div>
-		<ReactModal isOpen={equipment}>
-		 	<button type="button" onClick={() => setEquipment(false)}>X</button>
-			<p>Allows you to delete a current item or add a new one, if an item is in a current slot already then it replaces it</p>
-		 	<button type="button">+</button>
-		</ReactModal>
-		<div>
-			<p>Inventory</p>
-			<p>Inventory that is available</p>
-					<button type="button" onClick={() => setBags(true)}>Edit</button>
-		</div>
-		<ReactModal isOpen={bags}>
-		 	<button type="button" onClick={() => setBags(false)}>X</button>
-			<p>Allows you to delete a current item or add a new one</p>
-		 	<button type="button">+</button>
-		</ReactModal>
-			</TabPanel>
-
-			<TabPanel>
-				<button type="button" onClick={() => setLevels(true)}>Change</button>
-		<p>Classes and levels</p>
-		<ReactModal isOpen={levels}>
-		 	<button type="button" onClick={() => setLevels(false)}>X</button>
-			<p>Allows you to edit or delete a current item or add a new one</p>
-		 	<button type="button">+</button>
-		</ReactModal>
-			</TabPanel>
-		</Tabs>
-	);
-}
-*/
