@@ -235,11 +235,13 @@ export default class App extends React.Component {
 		});
 	}
 
-	addToList(name) {
-		var boxId = "charAvailable" + name;
-		var selectBox = document.getById(boxId);
+	addToList(name, listBox) {
 		var selection = [];
-		var options = selectBox.options;
+		var options = listBox.options;
+
+		if(!options) {
+			return;
+		}
 
 		for(var i = 0; i < options.length; i++) {
 			if(options[i].selected) {
@@ -251,87 +253,94 @@ export default class App extends React.Component {
 		//and change state based on name
 		switch(name) {
 			case "Cantrips":
-				this.setState((prevState, selection) => ({
-					var newCantrips = prevState.cantrips;
-
-					for(int i = 0; i < selection.length; i++) {
-						for(int j = 0; j < newCantrips.length; j++) {
-							if(selection[i] === newCantrips[j]) {
-								newCantrips[j].quantity += 1;
-								break;
-							}
+				var newCantrips = this.state.cantrips;
+				for(var i = 0; i < selection.length; i++) {
+					for(var j = 0; j < newCantrips.length; j++) {
+						if(selection[i] === newCantrips[j]) {
+							newCantrips[j].quantity += 1;
+							break;
 						}
-					return({cantrips: newCantrips});
-				}));
+					}
+				}
+
+				this.setState({
+					cantrips: newCantrips
+				});
 				break;
 
 			case "Spells":
-				this.setState((prevState, selection) => ({
-					var newSpells = prevState.spells;
-
-					for(int i = 0; i < selection.length; i++) {
-						for(int j = 0; j < newSpells.length; j++) {
-							if(selection[i] === newSpells[j]) {
-								newSpells[j].quantity += 1;
-								break;
-							}
+				var newSpells = this.state.spells;
+				for(var i = 0; i < selection.length; i++) {
+					for(var j = 0; j < newSpells.length; j++) {
+						if(selection[i] === newSpells[j]) {
+							newSpells[j].quantity += 1;
+							break;
 						}
-					return({spells: newSpells});
-				}));
+					}
+				}
+
+				this.setState({
+					spells: newSpells
+				});
 				break;
 
 			case "Feats":
-				this.setState((prevState, selection) => ({
-					var newFeats = prevState.feats;
-
-					for(int i = 0; i < selection.length; i++) {
-						for(int j = 0; j < newFeats.length; j++) {
-							if(selection[i] === newFeats[j]) {
-								newFeats[j].quantity += 1;
-								break;
-							}
+				var newFeats = this.state.feats;
+				for(var i = 0; i < selection.length; i++) {
+					for(var j = 0; j < newFeats.length; j++) {
+						if(selection[i] === newFeats[j]) {
+							newFeats[j].quantity += 1;
+							break;
 						}
-					return({feats: newFeats});
-				}));
+					}
+				}
+
+				this.setState({
+					feats: newFeats
+				});
 				break;
 
-			case "Feats":
-				this.setState((prevState, selection) => ({
-					var newItems = prevState.items;
-
-					for(int i = 0; i < selection.length; i++) {
-						for(int j = 0; j < newItems.length; j++) {
-							if(selection[i] === newItems[j]) {
-								newItems[j].quantity += 1;
-								break;
-							}
+			case "Items":
+				var newItems = this.state.items;
+				for(var i = 0; i < selection.length; i++) {
+					for(var j = 0; j < newItems.length; j++) {
+						if(selection[i] === newItems[j]) {
+							newItems[j].quantity += 1;
+							break;
 						}
-					return({items: newItems});
-				}));
+					}
+				}
+
+				this.setState({
+					items: newItems
+				});
 				break;
 
 			case "Class Levels":
-				this.setState((prevState, selection) => ({
-					var newClassLevels = prevState.classLevels;
-
-					for(int i = 0; i < selection.length; i++) {
-						for(int j = 0; j < newClassLevels.length; j++) {
-							if(selection[i] === newClassLevels[j]) {
-								newClassLevels[j].quantity += 1;
-								break;
-							}
+				var newClassLevels = this.state.classLevels;
+				for(var i = 0; i < selection.length; i++) {
+					for(var j = 0; j < newClassLevels.length; j++) {
+						if(selection[i] === newClassLevels[j]) {
+							newClassLevels[j].quantity += 1;
+							break;
 						}
-					return({classLevels: newClassLevels});
-				}));
+					}
+				}
+
+				this.setState({
+					classLevels: newClassLevels
+				});
 				break;
 		}
 	}
 
-	removeFromList(name) {
-		var boxId = "charAvailable" + name;
-		var selectBox = document.getById(boxId);
+	removeFromList(name, listBox) {
 		var selection = [];
-		var options = selectBox.options;
+		var options = listBox.options;
+
+		if(!options) {
+			return;
+		}
 
 		for(var i = 0; i < options.length; i++) {
 			if(options[i].selected) {
@@ -341,110 +350,114 @@ export default class App extends React.Component {
 
 		switch(name) {
 			case "Cantrips":
-				this.setState((prevState, selection) => ({
-					var newCantrips = prevState.cantrips;
+				var newCantrips = this.state.cantrips;
 
-					for(int i = 0; i < selection.length; i++) {
-						for(int j = 0; j < newCantrips.length; j++) {
-							if(selection[i] === newCantrips[j]) {
-								newCantrips[j].quantity -= 1;
+				for(var i = 0; i < selection.length; i++) {
+					for(var j = 0; j < newCantrips.length; j++) {
+						if(selection[i] === newCantrips[j]) {
+							newCantrips[j].quantity -= 1;
 
-								if(newCantrips[j].quantity >= 0) {
-									newCantrips[j].splice(j,1);
-									i--;	//sub 1 to realign with modded array
-								}
-								break;
+							if(newCantrips[j].quantity >= 0) {
+								newCantrips[j].splice(j,1);
+								i--;	//sub 1 to realign with modded array
 							}
+							break;
 						}
 					}
-					return({cantrips: newCantrips});
-				}));
+				}
+
+				this.setState({
+					cantrips: newCantrips
+				});
 				break;
 
 			case "Spells":
-				this.setState((prevState, selection) => ({
-					var newSpells = prevState.spells;
+				var newSpells = this.state.spells;
 
-					for(int i = 0; i < selection.length; i++) {
-						for(int j = 0; j < newSpells.length; j++) {
-							if(selection[i] === newSpells[j]) {
-								newSpells[j].quantity -= 1;
+				for(var i = 0; i < selection.length; i++) {
+					for(var j = 0; j < newSpells.length; j++) {
+						if(selection[i] === newSpells[j]) {
+							newSpells[j].quantity -= 1;
 
-								if(newSpells[j].quantity >= 0) {
-									newSpells[j].splice(j,1);
-									i--;	//sub 1 to realign with modded array
-								}
-								break;
+							if(newSpells[j].quantity >= 0) {
+								newSpells[j].splice(j,1);
+								i--;	//sub 1 to realign with modded array
 							}
+							break;
 						}
 					}
-					return({spells: newSpells});
-				}));
+				}
+
+				this.setState({
+					spells: newSpells
+				});
 				break;
 
 			case "Feats":
-				this.setState((prevState, selection) => ({
-					var newFeats = prevState.feats;
+				var newFeats = this.state.feats;
 
-					for(int i = 0; i < selection.length; i++) {
-						for(int j = 0; j < newFeats.length; j++) {
-							if(selection[i] === newFeats[j]) {
-								newFeats[j].quantity -= 1;
+				for(var i = 0; i < selection.length; i++) {
+					for(var j = 0; j < newFeats.length; j++) {
+						if(selection[i] === newFeats[j]) {
+							newFeats[j].quantity -= 1;
 
-								if(newFeats[j].quantity >= 0) {
-									newFeats[j].splice(j,1);
-									i--;	//sub 1 to realign with modded array
-								}
-								break;
+							if(newFeats[j].quantity >= 0) {
+								newFeats[j].splice(j,1);
+								i--;	//sub 1 to realign with modded array
 							}
+							break;
 						}
 					}
-					return({feats: newFeats});
-				}));
+				}
+
+				this.setState({
+					feats: newFeats
+				});
 				break;
 
 			case "Items":
-				this.setState((prevState, selection) => ({
-					var newItems = prevState.items;
+				var newItems = this.state.items;
 
-					for(int i = 0; i < selection.length; i++) {
-						for(int j = 0; j < newItems.length; j++) {
-							if(selection[i] === newItems[j]) {
-								newItems[j].quantity -= 1;
+				for(var i = 0; i < selection.length; i++) {
+					for(var j = 0; j < newItems.length; j++) {
+						if(selection[i] === newItems[j]) {
+							newItems[j].quantity -= 1;
 
-								if(newItems[j].quantity >= 0) {
-									newItems[j].splice(j,1);
-									i--;	//sub 1 to realign with modded array
-								}
-								break;
+							if(newItems[j].quantity >= 0) {
+								newItems[j].splice(j,1);
+								i--;	//sub 1 to realign with modded array
 							}
+							break;
 						}
 					}
-					return({items: newItems});
-				}));
+				}
+
+				this.setState({
+					items: newItems
+				});
 				break;
 
 			case "Class Levels":
-				this.setState((prevState, selection) => ({
-					var newClassLevels = prevState.classLevels;
+				var newClassLevels = this.state.classLevels;
 
-					for(int i = 0; i < selection.length; i++) {
-						for(int j = 0; j < newClassLevels.length; j++) {
-							if(selection[i] === newClassLevels[j]) {
-								newClassLevels[j].quantity -= 1;
+				for(var i = 0; i < selection.length; i++) {
+					for(var j = 0; j < newClassLevels.length; j++) {
+						if(selection[i] === newClassLevels[j]) {
+							newClassLevels[j].quantity -= 1;
 
-								if(newClassLevels[j].quantity >= 0) {
-									newClassLevels[j].splice(j,1);
-									i--;	//sub 1 to realign with modded array
-								}
-								break;
+							if(newClassLevels[j].quantity >= 0) {
+								newClassLevels[j].splice(j,1);
+								i--;	//sub 1 to realign with modded array
 							}
+							break;
 						}
 					}
-					return({classLevels: newClassLevels});
-				}));
-				break;
+				}
 
+				this.setState({
+					classLevels: newClassLevels
+				});
+				break;
 		}
 	}
 
