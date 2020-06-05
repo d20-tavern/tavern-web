@@ -200,7 +200,6 @@ export default class App extends React.Component {
 	changeSkill(name, value) {
 		if(value >= 0 && value <= this.state.charLevel) {
 			var newRanks = {...this.state.skillRanks, [name]: parseInt(value)};
-			console.log(newRanks); //TODO: remove after testing
 			this.setState({skillRanks: newRanks});
 		}
 	}
@@ -236,10 +235,230 @@ export default class App extends React.Component {
 		});
 	}
 
-	addToList(name) {
+	addToList(name, listBox) {
+		var selection = [];
+		var options = listBox.options;
+
+		if(!options) {
+			return;
+		}
+
+		for(var i = 0; i < options.length; i++) {
+			if(options[i].selected) {
+				selection.push(options[i].value);
+			}
+		}
+
+		//so far, everything is the same. Now, we diverge
+		//and change state based on name
+		switch(name) {
+			case "Cantrips":
+				var newCantrips = this.state.cantrips;
+				for(var i = 0; i < selection.length; i++) {
+					for(var j = 0; j < newCantrips.length; j++) {
+						if(selection[i] === newCantrips[j]) {
+							newCantrips[j].quantity += 1;
+							break;
+						}
+					}
+				}
+
+				this.setState({
+					cantrips: newCantrips
+				});
+				break;
+
+			case "Spells":
+				var newSpells = this.state.spells;
+				for(var i = 0; i < selection.length; i++) {
+					for(var j = 0; j < newSpells.length; j++) {
+						if(selection[i] === newSpells[j]) {
+							newSpells[j].quantity += 1;
+							break;
+						}
+					}
+				}
+
+				this.setState({
+					spells: newSpells
+				});
+				break;
+
+			case "Feats":
+				var newFeats = this.state.feats;
+				for(var i = 0; i < selection.length; i++) {
+					for(var j = 0; j < newFeats.length; j++) {
+						if(selection[i] === newFeats[j]) {
+							newFeats[j].quantity += 1;
+							break;
+						}
+					}
+				}
+
+				this.setState({
+					feats: newFeats
+				});
+				break;
+
+			case "Items":
+				var newItems = this.state.items;
+				for(var i = 0; i < selection.length; i++) {
+					for(var j = 0; j < newItems.length; j++) {
+						if(selection[i] === newItems[j]) {
+							newItems[j].quantity += 1;
+							break;
+						}
+					}
+				}
+
+				this.setState({
+					items: newItems
+				});
+				break;
+
+			case "Class Levels":
+				var newClassLevels = this.state.classLevels;
+				for(var i = 0; i < selection.length; i++) {
+					for(var j = 0; j < newClassLevels.length; j++) {
+						if(selection[i] === newClassLevels[j]) {
+							newClassLevels[j].quantity += 1;
+							break;
+						}
+					}
+				}
+
+				this.setState({
+					classLevels: newClassLevels
+				});
+				break;
+		}
 	}
 
-	removeFromList(name) {
+	removeFromList(name, listBox) {
+		var selection = [];
+		var options = listBox.options;
+
+		if(!options) {
+			return;
+		}
+
+		for(var i = 0; i < options.length; i++) {
+			if(options[i].selected) {
+				selection.push(options[i].value);
+			}
+		}
+
+		switch(name) {
+			case "Cantrips":
+				var newCantrips = this.state.cantrips;
+
+				for(var i = 0; i < selection.length; i++) {
+					for(var j = 0; j < newCantrips.length; j++) {
+						if(selection[i] === newCantrips[j]) {
+							newCantrips[j].quantity -= 1;
+
+							if(newCantrips[j].quantity >= 0) {
+								newCantrips[j].splice(j,1);
+								i--;	//sub 1 to realign with modded array
+							}
+							break;
+						}
+					}
+				}
+
+				this.setState({
+					cantrips: newCantrips
+				});
+				break;
+
+			case "Spells":
+				var newSpells = this.state.spells;
+
+				for(var i = 0; i < selection.length; i++) {
+					for(var j = 0; j < newSpells.length; j++) {
+						if(selection[i] === newSpells[j]) {
+							newSpells[j].quantity -= 1;
+
+							if(newSpells[j].quantity >= 0) {
+								newSpells[j].splice(j,1);
+								i--;	//sub 1 to realign with modded array
+							}
+							break;
+						}
+					}
+				}
+
+				this.setState({
+					spells: newSpells
+				});
+				break;
+
+			case "Feats":
+				var newFeats = this.state.feats;
+
+				for(var i = 0; i < selection.length; i++) {
+					for(var j = 0; j < newFeats.length; j++) {
+						if(selection[i] === newFeats[j]) {
+							newFeats[j].quantity -= 1;
+
+							if(newFeats[j].quantity >= 0) {
+								newFeats[j].splice(j,1);
+								i--;	//sub 1 to realign with modded array
+							}
+							break;
+						}
+					}
+				}
+
+				this.setState({
+					feats: newFeats
+				});
+				break;
+
+			case "Items":
+				var newItems = this.state.items;
+
+				for(var i = 0; i < selection.length; i++) {
+					for(var j = 0; j < newItems.length; j++) {
+						if(selection[i] === newItems[j]) {
+							newItems[j].quantity -= 1;
+
+							if(newItems[j].quantity >= 0) {
+								newItems[j].splice(j,1);
+								i--;	//sub 1 to realign with modded array
+							}
+							break;
+						}
+					}
+				}
+
+				this.setState({
+					items: newItems
+				});
+				break;
+
+			case "Class Levels":
+				var newClassLevels = this.state.classLevels;
+
+				for(var i = 0; i < selection.length; i++) {
+					for(var j = 0; j < newClassLevels.length; j++) {
+						if(selection[i] === newClassLevels[j]) {
+							newClassLevels[j].quantity -= 1;
+
+							if(newClassLevels[j].quantity >= 0) {
+								newClassLevels[j].splice(j,1);
+								i--;	//sub 1 to realign with modded array
+							}
+							break;
+						}
+					}
+				}
+
+				this.setState({
+					classLevels: newClassLevels
+				});
+				break;
+		}
 	}
 
 	updateMoney(value, type) {

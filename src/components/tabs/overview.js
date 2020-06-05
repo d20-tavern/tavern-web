@@ -85,9 +85,9 @@ export default class OverviewTab extends React.Component {
 					<AttributeField 
 						name="Charisma" 
 						value={this.props.charismaVal}
-						base={this.props.strengthBase}
-						inherent={this.props.strengthInherent}
-						enhance={this.props.strengthEnhance}
+						base={this.props.charismaBase}
+						inherent={this.props.charismaInherent}
+						enhance={this.props.charismaEnhance}
 						misc={this.props.charismaMisc}
 						update={this.props.updateAttr}
 					/><br/>
@@ -99,10 +99,12 @@ export default class OverviewTab extends React.Component {
 					<TextField
 						name="Description"
 						value={this.props.description}
+						ch={this.props.chText}
 					/><br/>
 					<TextField
 						name="Backstory"
 						value={this.props.backstory}
+						ch={this.props.chText}
 					/><br/>
 				</div>
 			</div>

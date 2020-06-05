@@ -7,7 +7,7 @@ export default class SpellsTab extends React.Component {
 		return (
 			<div>
 				<ListField
-					name="Class"
+					name="Classes"
 					hadItems={this.props.charClassLevels}
 					availableItems={this.props.availableClassLevels}
 					addItems={this.props.addToList}
