@@ -11,11 +11,6 @@ import InventoryTab from './components/tabs/inventory.js'
 import LevelsTab from './components/tabs/levels.js'
 
 
-
-
-
-
-
 export default class App extends React.Component {
 	constructor(props) {
 		super(props);
@@ -32,15 +27,7 @@ export default class App extends React.Component {
 		this.removeFromList = this.removeFromList.bind(this);
 		this.addToAvailableList = this.addToAvailableList.bind(this);
 
-
 		this.formSubmitHandler = this.formSubmitHandler.bind(this);
-
-
-
-
-
-
-
 
 
 		/*TODO: ALL of this is placeholder info, just to check math and logic.
@@ -185,7 +172,7 @@ export default class App extends React.Component {
 			availableClassLevels: [],
 
 
-			Host: "http://tavern-api.shadow53.com",
+			Host: "http://localhost:8765",
 		};
 	}
 
@@ -625,118 +612,94 @@ export default class App extends React.Component {
 	getData(slug, handleGen) {
 
             var xhr = new XMLHttpRequest();
-            xhr.open("GET", this.Host + slug);
+            xhr.open("GET", this.state.Host + slug);
             // When doing authentication:
             //xhr.withCredentials = true;
             //xhr.open(method, action, true, username, password);
             xhr.responseType = "json"            
-            xhr.addEventListener("load", handleGen(xhr));
+            xhr.addEventListener("load", function(e) { handleGen(xhr, e) });
             xhr.send();
 
         }
         
-        formSubmitHandler(form) {
-
-            return function(e) {
+        formSubmitHandler(e) {
+                var that = this;
                 e.stopPropagation();
                 e.preventDefault();
+                var form = e.currentTarget;
 
-
-                var action = this.Host + form.getAttribute("action");
+                var action = form.getAttribute("action");
                 var method = form.getAttribute("method");
-               
-                let xhr = XMLHttpRequest();
-                xhr.open(method, action);
+
+                var xhr = new XMLHttpRequest();
+                xhr.open(method, this.state.Host + action);
                 // When doing authentication:
                 //xhr.withCredentials = true;
                 //xhr.open(method, action, true, username, password);
                 xhr.responseType = "json";
                 var body = null;
+
                 switch (method) {
-                case "POST":
-
-                   var body = new FormData(form);
-                   xhr.addEventListener("load", function(e) {
-                        if (xhr.status === 200) {
-                            	var id = xhr.response.data;
-                                var id_action = `${action}/${id}`;
-                                document.getElementById("update-race-subtype-form").setAttribute("action", id_action);
-				document.getElementById("delete-race-subtype-form").setAttribute("action", id_action);
-                                this.getData(id_action, function(xhr2) {
-                                	if (xhr2.status === 200) {
-                                        	document.getElementById("update-racesubtype-name").value = xhr2.response.data.name;
-                                        	document.getElementById("update-racesubtype-description").value = xhr2.response.data.description;
-                                    	}
-					else if (xhr2.status >= 400 && xhr2.status < 500){
-                                        	alert('client error: ${xhr2.response.message}');
-                                    	} 
-					else if (xhr2.status >= 500) {
-                                        	console.log('server error: ${xhr2.response.message}');
-                                    	}
-                        	});
-			}
-				else if (xhr.status >= 400 && xhr.status < 500){
-                                	alert('client error: ${xhr.response.message}');
-                            	}
-				else if (xhr.status >= 500) {
-                                	console.log('server error: ${xhr.response.message}');
-                           	}
-                        });
-
-                        break;
-
-                    case "PUT":
-
+                    case "POST":
                         var body = new FormData(form);
                         xhr.addEventListener("load", function(e) {
-                            if (xhr.status >= 200 && xhr.status < 300 ) {
-                                alert('successfully updated at ${action}');
-                            } else if (xhr.status >= 400 && xhr.status < 500){
-                                alert('client error: ${xhr.response.message}');
-                            } else if (xhr.status >= 500) {
-                                console.log('server error: ${xhr.response.message}');
+                            if (xhr.status === 200) {
+                                var id = xhr.response.data.id;
+                                var id_action = `${action}/${id}`;
+                                document.getElementById("update-race-subtype-form").setAttribute("action", id_action);
+                                document.getElementById("delete-race-subtype-form").setAttribute("action", id_action);
+                                that.getData(id_action, function(xhr2) {
+                                    if (xhr2.status === 200) {
+                                        document.getElementById("update-racesubtype-name").value = xhr2.response.data.name;
+                                        document.getElementById("update-racesubtype-description").value = xhr2.response.data.description;
+                                    }
+                                    else if (xhr2.status >= 400 && xhr2.status < 500){
+                                        alert(`client error: ${xhr2.response.message}`);
+                                    } 
+                                    else if (xhr2.status >= 500) {
+                                        console.log(`server error: ${xhr2.response.message}`);
+                                    }
+                                });
+                            }
+                            else if (xhr.status >= 400 && xhr.status < 500){
+                                alert(`client error: ${xhr.response.message}`);
+                            }
+                            else if (xhr.status >= 500) {
+                                console.log(`server error: ${xhr.response.message}`);
                             }
                         });
                         break;
-
-                    case "DELETE":
-
+                    case "PUT":
+                        var body = new FormData(form);
                         xhr.addEventListener("load", function(e) {
                             if (xhr.status >= 200 && xhr.status < 300 ) {
-                                alert('successfully deleted at ${action}');
+                                alert(`successfully updated at ${action}`);
                             } else if (xhr.status >= 400 && xhr.status < 500){
-                                alert('client error: ${xhr.response.message}');
+                                alert(`client error: ${xhr.response.message}`);
                             } else if (xhr.status >= 500) {
-                                console.log('server error: ${xhr.response.message}');
+                                console.log(`server error: ${xhr.response.message}`);
+                            }
+                        });
+                        break;
+                    case "DELETE":
+                        xhr.addEventListener("load", function(e) {
+                            if (xhr.status >= 200 && xhr.status < 300 ) {
+                                alert(`successfully deleted at ${action}`);
+                            } else if (xhr.status >= 400 && xhr.status < 500){
+                                alert(`client error: ${xhr.response.message}`);
+                            } else if (xhr.status >= 500) {
+                                console.log(`server error: ${xhr.response.message}`);
                             }
                         });
                         break;
 
                     default:
-                        console.log('Invalid form method ${method}, expected one of \'POST\', \'PUT\', \'DELETE\'');
+                        console.log(`Invalid form method ${method}, expected one of \'POST\', \'PUT\', \'DELETE\'`);
                         return;
                 }
-                
+
                 xhr.send(body);
-
-            }
-
         }
-
-
-
-
-
-
-
-
-
- 
-
-
-
-
-
 
 	render() {
 		return (
@@ -969,11 +932,6 @@ export default class App extends React.Component {
 						lv7Slots={this.state.lv7SpellSlots}
 						lv8Slots={this.state.lv8SpellSlots}
 						lv9Slots={this.state.lv9SpellSlots}
-						
-
-
-
-
 
 						charCantrips={this.state.cantrips}
 						availableCantrips={this.state.availableCantrips}
@@ -1024,37 +982,43 @@ export default class App extends React.Component {
 				<TabPanel>
 
 
+                     <h1>Testing Page</h1>
+
+                     <h2>Insert</h2>
 					 <form id="insert-race-subtype-form" action="/race-subtypes" method="POST" onSubmit={this.formSubmitHandler}>
            				 	<div>
-                					<label for="insert-racesubtype-name">Name:</label>
+                					<label htmlFor="insert-racesubtype-name">Name:</label>
                 					<input id="insert-racesubtype-name" type="text" name="name" required />
            				 	</div>
            				 	<div>
-              				 		<label for="insert-racesubtype-description">Description:</label>
-                					<textarea name="insert-racesubtype-description" required></textarea>
+              				 		<label htmlFor="insert-racesubtype-description">Description:</label>
+                					<textarea id="insert-racesubtype-description" name="description" required></textarea>
             					</div>
             					<div>
-                					<button type="submit">Submit</button>
+                					<button type="submit">Insert</button>
             					</div>
 
         				</form>
+
+                        <h2>Update</h2>
        					<form id="update-race-subtype-form" method="PUT" onSubmit={this.formSubmitHandler}>
             					<div>
-							<label for="update-racesubtype-name">Name:</label>
+							<label htmlFor="update-racesubtype-name">Name:</label>
                 					<input id="update-racesubtype-name" type="text" name="name" required />
             					</div>
             					<div>
-                					<label for="update-racesubtype-description">Description:</label>
-                					<textarea name="update-racesubtype-description" required></textarea>
+                					<label htmlFor="update-racesubtype-description">Description:</label>
+                					<textarea id="update-racesubtype-description" name="description" required></textarea>
             					</div>
             					<div>
-                					<button type="submit">Submit</button>
+                					<button type="submit">Update</button>
             					</div>
         				</form>
 
+                        <h2>Delete</h2>
         				<form id="delete-race-subtype-form" method="DELETE" onSubmit={this.formSubmitHandler}>
             					<div>
-                					<button type="submit">Submit</button>
+                					<button type="submit">Delete</button>
             					</div>
         				</form>
 
